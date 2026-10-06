@@ -1,0 +1,444 @@
+INICIO DEL PROMPT
+
+El copiloto ya está integrado y funcionando dentro del proyecto. No debes volver a instalarlo, copiarlo, reemplazarlo ni crear una integración nueva.
+
+El objetivo de esta tarea es únicamente reestructurar:
+
+- La forma de acceder al copiloto.
+- El flujo después de solicitar una explicación.
+- La información que muestra.
+- La organización de esa información.
+- El almacenamiento y la consulta posterior de las explicaciones.
+
+Trabaja primero en modo Plan. Inspecciona la implementación actual del copiloto y explica qué componentes, rutas, endpoints y tablas existentes se reutilizarán. No modifiques código hasta presentar el plan.
+
+## 1. Restricciones de alcance
+
+No debes:
+
+- Reintegrar el copiloto.
+- Crear un segundo servicio de copiloto.
+- Cambiar la configuración de OpenAI.
+- Reemplazar el endpoint existente si puede adaptarse.
+- Modificar el orquestador ONNX.
+- Cambiar los modelos de pricing.
+- Cambiar costos, intervalos, guardrails o reglas operativas.
+- Cambiar permisos o restricciones de los roles.
+- Crear otra aplicación o frontend.
+- Realizar una refactorización general del proyecto.
+
+Reutiliza la implementación, contratos, autenticación, base de datos, RAG y servicio de generación que ya existen.
+
+## 2. Nueva forma de acceso
+
+En el menú lateral principal agrega una opción llamada:
+
+“Copilot”
+
+Debe aparecer inmediatamente debajo de “Pricing File”.
+
+Esta opción debe abrir una página completa dentro del layout actual del sistema. No debe abrir otro modal ni una aplicación separada.
+
+El acceso “Copilot” tendrá dos estados:
+
+### Vista general
+
+Cuando el usuario entre directamente desde el menú lateral, debe ver las explicaciones guardadas que tiene autorización para consultar.
+
+Cada registro debe mostrar:
+
+- Ruta.
+- Identificador de cotización.
+- Referencia explicada con nombre comercial.
+- Costo explicado.
+- Moneda.
+- Fecha de generación.
+- Usuario que solicitó la explicación, cuando el rol pueda verlo.
+- Estado de la explicación.
+
+Debe ser posible buscar o filtrar por:
+
+- Ruta.
+- Identificador de cotización.
+- Fecha.
+- Referencia explicada.
+- Usuario, cuando el rol tenga permiso.
+
+### Vista de detalle
+
+Al seleccionar una explicación guardada, se debe mostrar su contenido completo sin volver a ejecutar el copiloto ni consumir tokens.
+
+## 3. Cambio en el botón existente
+
+Conserva el botón:
+
+“Explicar esta referencia (copiloto)”
+
+Cuando el usuario haga clic, ya no debe mostrarse toda la explicación dentro del modal o sección actual de la cotización.
+
+El nuevo comportamiento debe ser:
+
+1. Identificar el `quote_id` de la cotización.
+2. Identificar el `model_key` de la referencia seleccionada.
+3. Navegar a la sección “Copilot”.
+4. Buscar si ya existe una explicación guardada para esa cotización y referencia.
+5. Si existe, mostrarla inmediatamente.
+6. Si no existe, utilizar el copiloto ya integrado para generarla.
+7. Guardar el resultado.
+8. Mostrar la explicación dentro de la página “Copilot”.
+
+No aceptes desde el navegador valores monetarios, intervalos o resultados de modelos. El backend debe recuperar el resultado original de pricing que ya se encuentra guardado.
+
+El botón debe funcionar tanto para la referencia recomendada como para cualquier alternativa que sea seleccionable conforme a las reglas existentes.
+
+## 4. Reutilización de explicaciones
+
+Antes de ejecutar el copiloto, el backend debe consultar si ya existe una explicación compatible.
+
+La identidad mínima de una explicación debe considerar:
+
+`quote_id + model_key + versión o hash del resultado de pricing`
+
+Si esos elementos no cambiaron, se debe reutilizar la explicación guardada.
+
+Las siguientes acciones no deben volver a consumir tokens:
+
+- Recargar la página.
+- Cerrar sesión y volver a ingresar.
+- Acceder desde el menú “Copilot”.
+- Volver a abrir la misma cotización.
+- Presionar nuevamente “Explicar esta referencia”.
+- Consultar varias veces la misma referencia.
+- Abrir la explicación desde distintos dispositivos.
+
+Cuando se reutilice una explicación, mostrar:
+
+“Explicación guardada. No fue necesario generar una nueva.”
+
+También debe mostrarse la fecha y hora en que se generó originalmente.
+
+## 5. Persistencia
+
+Primero verifica si la implementación actual ya guarda las explicaciones.
+
+Si ya existe persistencia:
+
+- Reutiliza la tabla y el repositorio existentes.
+- Agrega únicamente los campos que realmente falten.
+- No crees una segunda tabla con la misma responsabilidad.
+
+Si todavía no existe persistencia durable, agrega una migración mínima utilizando la base de datos compartida del proyecto.
+
+No uses:
+
+- `localStorage`.
+- Memoria del proceso.
+- Filesystem local de Replit.
+- Archivos JSON creados durante la ejecución.
+- SQLite local del Deployment.
+
+Cada explicación debe conservar, como mínimo:
+
+- Identificador de explicación.
+- `quote_id`.
+- `model_key`.
+- Nombre comercial de la referencia.
+- Versión o hash del resultado de pricing.
+- Snapshot del costo y moneda explicados.
+- Respuesta estructurada del copiloto.
+- Evidencia histórica mostrada.
+- Rutas exactas recuperadas.
+- Rutas cercanas recuperadas.
+- Resultados por transportista.
+- Viajes usados como referencia.
+- Advertencias y limitaciones.
+- Identificadores de evidencia validados.
+- Versión del prompt.
+- Versión del corpus RAG.
+- Modelo utilizado.
+- Tokens consumidos durante la generación original.
+- Usuario solicitante.
+- Fecha y hora UTC.
+- Estado de generación.
+
+No sobrescribas explicaciones anteriores si el resultado de pricing cambia. Conserva las versiones anteriores para auditoría.
+
+## 6. Evitar generaciones duplicadas
+
+Evita que dos clics o solicitudes simultáneas generen dos respuestas para la misma referencia.
+
+Antes de llamar a OpenAI, reclama de manera atómica la generación correspondiente.
+
+Los estados mínimos pueden ser:
+
+- `generating`.
+- `completed`.
+- `failed`.
+
+Si ya existe una generación en proceso:
+
+- No iniciar otra.
+- Mostrar que la explicación se está preparando.
+- Esperar o consultar su estado.
+- Mostrar el mismo resultado cuando termine.
+
+La prevención de duplicados debe existir en el backend. Deshabilitar temporalmente el botón en el frontend es complementario, pero no suficiente.
+
+## 7. Estructura del detalle del Copilot
+
+La explicación debe presentarse con la siguiente jerarquía.
+
+### 7.1 Encabezado
+
+Mostrar:
+
+- Título “Copilot”.
+- Ruta origen → destino.
+- Identificador de cotización.
+- Referencia explicada.
+- Costo seleccionado.
+- Moneda.
+- Fecha de generación.
+- Estado de la explicación.
+- Indicador de explicación nueva o guardada.
+- Acción para regresar a la cotización.
+
+### 7.2 Explicación de la referencia
+
+Mostrar:
+
+- Explicación comercial.
+- Motivos por los que la referencia es relevante.
+- Evidencia utilizada.
+- Siguiente paso recomendado.
+- Advertencias.
+- Limitaciones.
+- Cantidad de fuentes utilizadas.
+- Fecha de generación.
+
+Los datos técnicos como modelo, versiones y tokens deben quedar en un área secundaria de auditoría, no como contenido principal para carriers/pricing. 
+
+Mantener visible la advertencia de que la explicación:
+
+- No autoriza una tarifa.
+- No confirma disponibilidad.
+- No sustituye la validación con carrier, Operaciones o Procurement.
+
+### 7.3 Rutas y resultados anteriores
+
+Crear una sección titulada:
+
+“Rutas y resultados anteriores”
+
+Mostrar:
+
+- Nivel de coincidencia histórica.
+- Periodo consultado.
+- Cantidad de viajes útiles.
+- Misma ruta y equipo, cuando corresponda.
+
+Para cada ruta exacta mostrar:
+
+- Origen → destino.
+- División.
+- Equipo.
+- Servicio.
+- Sentido o corredor, cuando exista.
+- Cantidad de viajes.
+- Costo all-in habitual.
+- Venta all-in habitual.
+- Margen habitual.
+
+### 7.4 Rutas cercanas
+
+Crear una sección titulada:
+
+“Rutas cercanas”
+
+Explicar que son referencias secundarias y no sustituyen la ruta exacta.
+
+Mostrar el parámetro como:
+
+“Radio configurado para beta: 30 km”
+
+Aclarar que una ruta histórica sólo es candidata cuando:
+
+- Su origen está a 30 km o menos del origen solicitado; Y
+- Su destino está a 30 km o menos del destino solicitado.
+
+Las condiciones se evalúan independientemente.
+
+No se deben sumar las distancias, utilizar una condición `OR` ni aceptar una ruta porque sólo uno de sus extremos está cerca.
+
+También debe aclararse que los 30 km son un parámetro configurable de beta, no una regla aprendida por los modelos ni un umbral comercial validado definitivamente.
+
+Para cada ruta cercana mostrar:
+
+- Origen → destino.
+- División.
+- Equipo.
+- Servicio.
+- Distancia entre orígenes.
+- Distancia entre destinos.
+- Diferencia porcentual del recorrido.
+- Cantidad de viajes.
+- Costo all-in habitual.
+- Venta habitual.
+- Margen habitual.
+- Viajes con margen negativo.
+- Transportistas observados.
+- Folios de referencia.
+
+### 7.5 Resultados por transportista
+
+Crear una sección titulada:
+
+“Resultados por transportista”
+
+Ordenarlos por cantidad de viajes.
+
+Mostrar:
+
+- Transportista.
+- Ruta.
+- Equipo.
+- Cantidad de viajes.
+- Costo all-in habitual.
+- Venta habitual.
+- Margen habitual en importe y porcentaje.
+- Folios recientes.
+
+Los transportistas se deben resolver desde la información interna del backend. No cambies la política actual de desidentificación hacia OpenAI.
+
+### 7.6 Viajes usados como referencia
+
+Crear una sección titulada:
+
+“Viajes usados como referencia”
+
+Mostrar una tabla con:
+
+- Fecha.
+- Folio o referencia.
+- Transportista.
+- Ruta.
+- División.
+- Equipo.
+- Costo all-in.
+- Venta all-in.
+- Margen.
+
+Mantener formato monetario consistente y adaptar la presentación para pantallas pequeñas.
+
+## 8. Información ausente
+
+Maneja explícitamente:
+
+- Historial exacto disponible.
+- Sólo rutas cercanas disponibles.
+- Historial antiguo.
+- Sin rutas cercanas.
+- Coordenadas incompletas.
+- Sin transportistas.
+- Sin viajes elegibles.
+- Evidencia limitada.
+- Explicación no disponible.
+
+No muestres campos vacíos ni inventes información.
+
+Cuando falte evidencia, explica:
+
+- Qué información falta.
+- Cómo afecta la confiabilidad.
+- Qué validación humana debe realizarse.
+
+## 9. Permisos
+
+La opción “Copilot” no debe ampliar el acceso a cotizaciones.
+
+El backend debe verificar:
+
+- Usuario autenticado.
+- Acceso a la cotización.
+- Acceso a la referencia seleccionada.
+- Disponibilidad original de la referencia.
+- Permiso para consultar explicaciones anteriores.
+
+No confíes únicamente en que el menú o botón esté oculto.
+
+## 10. Consistencia con el sistema
+
+Reutiliza:
+
+- Layout existente.
+- Menú lateral.
+- Componentes actuales.
+- Tipografía.
+- Espaciados.
+- Tarjetas.
+- Tablas.
+- Estados de carga.
+- Manejo de errores.
+- Notificaciones.
+- Comportamiento adaptable a distintos tamaños de pantalla.
+
+No construyas componentes aislados si el proyecto ya tiene equivalentes reutilizables.
+
+## 11. Pruebas obligatorias
+
+Verifica:
+
+1. “Copilot” aparece debajo de “Pricing File”.
+2. El botón existente navega a la sección “Copilot”.
+3. Se explica exactamente la referencia seleccionada.
+4. La primera solicitud genera y guarda la explicación.
+5. La segunda consulta utiliza la explicación guardada.
+6. Recargar la página no consume tokens.
+7. Entrar desde el menú permite consultar explicaciones anteriores.
+8. Dos solicitudes simultáneas producen una sola generación.
+9. Cada alternativa tiene su propia explicación.
+10. Un cambio en pricing no reutiliza una explicación incompatible.
+11. Las explicaciones anteriores no se sobrescriben.
+12. Los permisos de cada rol permanecen sin cambios.
+13. No se pueden consultar cotizaciones ajenas.
+14. Una falla del copiloto no afecta la cotización.
+15. Las rutas cercanas validan independientemente origen y destino.
+16. Los transportistas conservan la política actual de privacidad.
+17. La información ausente no se inventa.
+18. La recuperación desde base no incrementa la cuota de tokens.
+19. No se modifican ONNX, modelos, costos, intervalos ni reglas operativas.
+20. La página funciona correctamente en diferentes tamaños de pantalla.
+
+## 12. Entrega esperada
+
+Antes de modificar, presenta:
+
+- Cómo funciona actualmente el copiloto.
+- Dónde se muestra actualmente la explicación.
+- Endpoint y servicio actuales.
+- Persistencia actual, si existe.
+- Componentes que pueden reutilizarse.
+- Archivos que será necesario modificar.
+- Cambios mínimos de API.
+- Migración necesaria, si aplica.
+- Estrategia de idempotencia.
+- Plan de pruebas.
+
+Espera aprobación antes de implementar.
+
+Al terminar, reporta:
+
+- Archivos modificados.
+- Componentes reutilizados.
+- Cambios de navegación.
+- Cambios en la forma de mostrar la explicación.
+- Cambios de persistencia.
+- Migraciones ejecutadas.
+- Endpoints adaptados.
+- Pruebas ejecutadas.
+- Evidencia de que consultar una explicación guardada no genera otra llamada ni consume tokens.
+- Cualquier pendiente o supuesto.
+
+El alcance de esta tarea es reestructurar el copiloto ya integrado. No volver a integrarlo ni modificar el sistema de pricing.
+
+FIN DEL PROMPT

@@ -1,0 +1,49 @@
+IMPORTANTE: No hagas NINGÚN cambio al código. Solo muéstrame y explica.
+
+Necesito entender exactamente cómo manejar las credenciales y autenticación
+al replicar este proyecto fuera de Replit. Responde sección por sección:
+
+═══════════════════════════════════════════
+1. RESEND SIN REPLIT CONNECTORS
+═══════════════════════════════════════════
+La función getUncachableResendClient() usa REPLIT_CONNECTORS_HOSTNAME para
+obtener el API key de Resend. Fuera de Replit eso no existe.
+
+Muéstrame el código completo de esa función y dime:
+- ¿Qué exactamente necesito reemplazar para usar un API key directo de Resend?
+- ¿El API key de Resend se podría pasar simplemente como RESEND_API_KEY en el .env?
+- ¿Qué otras referencias a REPLIT_CONNECTORS_HOSTNAME o REPL_IDENTITY existen
+  en emailService.ts que habría que modificar?
+
+═══════════════════════════════════════════
+2. GOOGLE SHEETS SIN REPLIT CONNECTORS
+═══════════════════════════════════════════
+La función getAccessToken() en googleSheets.ts también depende de
+REPLIT_CONNECTORS_HOSTNAME. Fuera de Replit necesitamos otra forma.
+
+Muéstrame el código completo de getAccessToken() y dime:
+- ¿Qué credenciales necesitaría una Service Account de Google para reemplazarlo?
+- ¿Qué variables de entorno nuevas habría que agregar?
+  (GOOGLE_SERVICE_ACCOUNT_EMAIL, GOOGLE_PRIVATE_KEY, etc.)
+- ¿Hay alguna otra referencia a variables de Replit en googleSheets.ts?
+
+═══════════════════════════════════════════
+3. FIREBASE
+═══════════════════════════════════════════
+Las variables VITE_FIREBASE_* están presentes pero dijiste que el uso es menor.
+- ¿En qué archivos del frontend se usan exactamente?
+- ¿Qué funcionalidad específica de Firebase se usa? ¿Auth, Firestore, Storage?
+- ¿Se puede desactivar Firebase sin romper el sistema?
+- Muéstrame el código donde se inicializa Firebase
+
+═══════════════════════════════════════════
+4. CONTRASEÑAS Y SEGURIDAD
+═══════════════════════════════════════════
+- El campo plain_password en la tabla users guarda contraseñas en texto plano.
+  ¿En qué endpoints se lee o escribe este campo?
+- SESSION_SECRET tiene un fallback hardcodeado. ¿En qué línea exacta está ese fallback?
+- ¿Hay algún otro secreto o credencial hardcodeada en el código además del
+  finalFromEmail de Resend y el fallback de SESSION_SECRET?
+- ¿El GOOGLE_SHEET_ID está hardcodeado en algún lado además del process.env?
+
+Muéstrame el código exacto de cada caso sin modificar nada.

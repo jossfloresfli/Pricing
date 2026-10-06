@@ -1,0 +1,9 @@
+uploads = []
+generated = []
+
+[[outputs]]
+id = "_5F5TvcRq9WvxgRxRr2IG"
+uri = "file://GUIA_MIGRACION_LOCAL.md"
+type = "text"
+title = "Guía completa de migración local"
+description = "Stack y versiones, estructura, variables, exportación de PostgreSQL, instalación local y reemplazos necesarios al salir de Replit."

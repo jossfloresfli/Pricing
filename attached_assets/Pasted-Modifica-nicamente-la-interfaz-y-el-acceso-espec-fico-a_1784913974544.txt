@@ -1,0 +1,85 @@
+Modifica únicamente la interfaz y el acceso específico a la función “Calcular referencia de costo”. No cambies los modelos, cálculos, reglas operativas, criterios de selección, estados, guardrails, motivos obligatorios ni lógica de precotización existente.
+
+1. Eliminar detalles técnicos
+
+Elimina completamente de la interfaz la sección, botón o desplegable “Ver detalles técnicos”.
+
+No muestres nombres internos, identificadores de modelos, P67, LightGBM, códigos de guardrails ni información técnica al usuario.
+
+La información técnica deberá seguir disponible internamente para logs, auditoría y diagnóstico, pero no deberá mostrarse en la pantalla.
+
+2. Rediseñar “Más opciones de precotización”
+
+Cambia esta sección para que utilice el formato visual de la imagen de referencia:
+
+- Contenedor desplegable con el título “Más opciones de precotización”.
+- Mostrar las cuatro opciones como tarjetas verticales de ancho completo.
+- Colocar el nombre amigable y el estado en la parte izquierda.
+- Mostrar el importe en MXN alineado a la derecha.
+- Mostrar el rango estimado debajo del nombre cuando esté disponible.
+- Conservar las cuatro opciones:
+  - Estimación histórica.
+  - Estimación con protección.
+  - Estimación ajustada por ruta.
+  - Comparación con rutas similares.
+
+Usa estas presentaciones según el estado:
+
+- “Recomendada para esta ruta”: borde y detalles azules, badge azul y texto “Referencia de trabajo actual”.
+- “Disponible con revisión”: estilo neutral y acción “Usar esta opción (requiere motivo)”.
+- “No aplicable”: tarjeta deshabilitada, menor contraste y explicación breve.
+- “Sin recomendación: cotización manual”: tarjeta bloqueada con advertencia visible y sin posibilidad de selección.
+
+Al seleccionar una alternativa diferente de la recomendada, conserva la obligación de registrar un motivo. No permitas seleccionar opciones no aplicables ni casos enviados a cotización manual.
+
+No ordenes los modelos por precio. Conserva el orden definido y la recomendación calculada por las reglas existentes.
+
+3. Mantener las reglas actuales
+
+No modifiques:
+
+- Pesos 50/50 o 75/25 de la Estimación ajustada por ruta.
+- Reglas de historial.
+- Aplicación de la protección.
+- Restricciones de Crossborder, National, Domestic, Port Freight y LTL.
+- Umbral de confianza de 45%.
+- Reglas para equipos especiales.
+- Límites de intervalo, desacuerdo, protección o costo por kilómetro.
+- Casos donde ningún modelo puede utilizarse.
+- Motivos obligatorios y registro de auditoría.
+- Estado de beta en sombra.
+- Confirmación obligatoria con carrier, Operaciones o Procurement.
+
+El cambio visual no debe alterar resultados, importes, intervalos, estados ni modelo recomendado.
+
+4. Disponibilidad para todos los roles
+
+Haz que la opción “Calcular referencia de costo” sea visible y utilizable por todos los roles autenticados.
+
+Este acceso debe implementarse como una capacidad específica y aislada para consultar y calcular referencias de costo. No asignes privilegios administrativos, no elimines validaciones globales y no amplíes el acceso a otros módulos.
+
+Conserva sin cambios todas las demás restricciones y permisos de cada rol, incluyendo:
+
+- Consulta y edición de información.
+- Administración de usuarios.
+- Configuración.
+- Aprobaciones.
+- Guardado o modificación de cotizaciones.
+- Acceso a módulos administrativos.
+- Cualquier otra acción restringida por rol.
+
+Todos los roles podrán calcular y consultar la referencia, pero las acciones posteriores deberán seguir respetando los permisos originales de cada usuario.
+
+5. Validaciones de aceptación
+
+Comprueba que:
+
+- “Ver detalles técnicos” ya no aparezca en ninguna resolución.
+- Las cuatro opciones se muestren con el formato de tarjetas de la imagen.
+- Solo una opción aparezca como recomendada.
+- Las alternativas requieran motivo.
+- Las opciones no aplicables permanezcan deshabilitadas.
+- Los importes y decisiones sean idénticos antes y después del cambio visual.
+- Todos los roles autenticados puedan abrir y ejecutar “Calcular referencia de costo”.
+- Ningún rol obtenga permisos adicionales fuera de esta función.
+- La vista funcione correctamente en escritorio y dispositivos móviles.

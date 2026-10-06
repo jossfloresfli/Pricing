@@ -1,0 +1,67 @@
+IMPORTANTE: No hagas NINGÚN cambio al código. Solo muéstrame el contenido exacto tal como está.
+
+Necesito entender a fondo cómo funciona la capa de datos del backend. Responde sección por sección:
+
+═══════════════════════════════════════════
+1. QUERIES DE PRICING REQUESTS (lo más crítico)
+═══════════════════════════════════════════
+Muéstrame el código exacto de estos métodos en storage.ts:
+- getPricingRequests() → ¿Cómo filtra por rol? ¿Recibe parámetros? ¿Hace JOINs o queries separadas?
+- getPricingRequest(id) → ¿Qué devuelve exactamente? ¿Incluye las ofertas del JSON o las trae de carrier_offers?
+- createPricingRequest() → ¿Qué campos son requeridos? ¿Qué transforma antes de insertar?
+- updatePricingRequest() → ¿Cómo maneja el campo rutas (JSON)? ¿Hace merge o replace completo?
+- deletePricingRequest() → Ya sabemos que borra carrier_offers y notifications primero
+
+═══════════════════════════════════════════
+2. FILTROS Y VISIBILIDAD POR ROL
+═══════════════════════════════════════════
+El filtrado por rol (sales_rep solo ve sus quotes, carrier_rep solo ve donde tiene ofertas)
+¿Dónde ocurre exactamente? ¿En storage.ts, en routes.ts, o en el frontend?
+Muéstrame el código exacto del filtro. Por ejemplo:
+- ¿getPricingRequests() recibe el userId/role como parámetro y filtra en SQL?
+- ¿O devuelve todo y routes.ts filtra el array?
+- ¿Cómo sabe el backend qué usuario está pidiendo los datos?
+
+═══════════════════════════════════════════
+3. QUERIES DE CARRIER OFFERS
+═══════════════════════════════════════════
+- getCarrierOffersByRequest(requestId) → ¿devuelve las de la tabla carrier_offers o parsea el JSON de rutas?
+- createCarrierOffer() → ¿inserta en la tabla carrier_offers O en el JSON de rutas O en ambos?
+- ¿Cómo se sincroniza (o no) la tabla carrier_offers con el JSON dentro de pricing_requests.rutas?
+
+═══════════════════════════════════════════
+4. QUERIES DE NOTIFICATIONS
+═══════════════════════════════════════════
+Muéstrame el código exacto de:
+- getNotificationsByUser(userId) → ¿ordena por fecha? ¿filtra leídas/no leídas? ¿hace JOIN con users?
+- getUnreadNotificationCount(userId)
+- createNotification() → ¿qué campos tiene la tabla? Muéstrame el insert completo
+- ¿Qué columnas tiene exactamente la tabla notifications en el schema?
+
+═══════════════════════════════════════════
+5. QUERIES DEL DASHBOARD Y BÚSQUEDA
+═══════════════════════════════════════════
+- ¿Cómo calcula las métricas del dashboard (total activas, ganadas, perdidas)?
+  ¿Es una query SQL con GROUP BY o cuenta arrays en JavaScript?
+- El buscador global GET /api/search?q= → ¿usa LIKE, ILIKE, full-text search de Postgres?
+  Muéstrame la query exacta
+- GET /api/admin/stats → ¿qué query hace? ¿agrupa por usuario?
+
+═══════════════════════════════════════════
+6. SCHEMA COMPLETO DE SHARED/SCHEMA.TS
+═══════════════════════════════════════════
+Muéstrame el contenido completo de shared/schema.ts tal como está.
+Necesito ver todas las tablas, columnas, tipos, defaults y relaciones definidas con Drizzle.
+Especialmente las columnas que NO están en el SQL de migrations/ (las que se agregaron después
+con db:push): urgencia, fecha_entrega, historial, comentarios, notas_pricing, etc.
+
+═══════════════════════════════════════════
+7. CONEXIÓN A LA BASE DE DATOS (db.ts)
+═══════════════════════════════════════════
+Muéstrame el contenido completo de server/db.ts:
+- ¿Cómo configura el pool de conexiones?
+- ¿Cuántas conexiones máximas?
+- ¿Hay manejo de reconexión o timeouts?
+- ¿Cómo se importa en el resto del código?
+
+Responde sección por sección mostrando el código real sin modificar nada.

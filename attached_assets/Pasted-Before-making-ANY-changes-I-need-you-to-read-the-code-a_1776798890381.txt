@@ -1,0 +1,31 @@
+Before making ANY changes, I need you to read the code and tell me EXACTLY what you plan to do, file by file, line by line. Do not modify anything until I approve.
+Here is the feature I want to add:
+Goal: Add a share button inside the quote detail modal, visible only when the "Ofertas" tab is active. The button copies a link to the clipboard. The link, when opened, requires the user to be logged in first, and then automatically opens the correct quote modal on the "Ofertas" tab.
+
+The 3 parts:
+Part 1 — Share button in the modal (RequestDetailModal.tsx)
+
+Add a small share button (Share2 icon from lucide-react, size="icon", variant ghost) that appears only when activeTab === "ofertas"
+Place it in the top-right area of the modal header, near the close button
+On click: build the URL window.location.origin + window.location.pathname + "?detail=" + requestId + "&tab=ofertas", copy it to clipboard with navigator.clipboard.writeText(), and show "Link copiado" using the existing toast system
+
+Part 2 — Sync URL params when modal opens/closes (Dashboard.tsx)
+
+When the modal opens, call window.history.replaceState to add ?detail=<id>&tab=<activeTab> to the URL (no router changes)
+When the modal closes, clear those params with window.history.replaceState
+On page load, read ?detail and ?tab from window.location.search and if present, set selectedRequest to that id and pass initialTab to the modal
+
+Part 3 — Auth protection (verify existing behavior)
+
+Check how the app currently handles unauthenticated users. If unauthenticated users are already redirected to login, confirm this. If not, the URL params (?detail and ?tab) must be preserved through the login redirect so they are applied after login.
+Do not change the existing auth logic. Only add param preservation if it's missing.
+
+
+Before touching any code, tell me:
+
+Exactly which files you will modify
+Exactly which lines you will add or change in each file
+How the existing auth redirect works and whether params survive it today
+Any risks or side effects you foresee
+
+Wait for my approval before making any changes.

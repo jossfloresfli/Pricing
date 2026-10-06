@@ -1,0 +1,233 @@
+Nombre,Correo,Puesto,,DIVISIONES,TIPO DE EQUIPO,,Usuario,Correo,Rol,Contraseña,,Nombre cliente
+Daniel Chavez,daniel.chavez@vaxsolutions.mx,Sales Rep,,Crossborder,1.5,,daniel_chavez,daniel.chavez@vaxsolutions.mx,Sales Rep,danielvax,,International Furniture
+Jessica Hernández,jessica.hernandez@vaxsolutions.mx,Sales Rep,,National,3.5,,jessica_hernandez,jessica.hernandez@vaxsolutions.mx,Sales Rep,jessicavax,,Zagis
+Jesus Velazquez,jesus.velazquez@vaxsolutions.mx,Sales Rep,,Domestic,DryVan / Reefer,,jesus_velazquez,jesus.velazquez@vaxsolutions.mx,Sales Rep,jesusvax,,Adidas
+Juan Macías,juan.macias@vaxsolutions.mx,Sales Rep,,Aerial,DryVan 53,,juan_macias,juan.macias@vaxsolutions.mx,Sales Rep,maciasvax,,Direct Pack Baja
+Juan Rojas,juan.rojas@vaxsolutions.mx,Sales Rep,,Maritime,Flatbed 20,,juan_rojas,juan.rojas@vaxsolutions.mx,Sales Rep,rojasvax,,Tajin
+Thalia Orendain,thalia.orendain@vaxsolutions.mx,Sales Rep,,Central America,Flatbed 40,,thalia_orendain,thalia.orendain@vaxsolutions.mx,Sales Rep,thaliavax,,Tempel de México
+Luis Ortiz,luis.ortiz@vaxsolutions.mx,Sales Lead,,Port Freight,Flatbed 48,,luis_ortiz,luis.ortiz@vaxsolutions.mx,Sales Lead,luisvax,,Home Depot
+Marco Martínez,marco.martinez@vaxsolutions.mx,Sales Lead,,LTL,Flatbed 53,,marco_martinez,marco.martinez@vaxsolutions.mx,Sales Lead,marcovax,,AMI Trading
+Blanca Rodríguez,blanca.rodriguez@vaxsolutions.mx,Sales Lead,,,Flatbed Conestoga,,blanca_rodriguez,blanca.rodriguez@vaxsolutions.mx,Sales Lead,blancavax,,Goodpack
+Eduardo Chaim,eduardo.chaim@vaxsolutions.mx,Sales Lead,,,Full Container 20,,eduardo_chaim,eduardo.chaim@vaxsolutions.mx,Sales Lead,chaimvax,,Copamex
+Cinthia Solorio,cinthia.solorio@vaxsolutions.mx,Pricing,,,Full Container 40,,cinthia_solorio,cinthia.solorio@vaxsolutions.mx,Pricing,cinthiavax,,Klass Time USA
+Eduardo Varela,eduardo.varela@vaxsolutions.mx,Carrier Manager,,,Full Container Reefer 20,,eduardo_varela,eduardo.varela@vaxsolutions.mx,Carrier Manager,varelavax,,Veloci Motors
+Montse Najera,montserrat.najera@vaxsolutions.mx,Carrier Lead,,,Full Container Reefer 40,,montserrat_najera,montserrat.najera@vaxsolutions.mx,Carrier Lead,montsevax,,Industria del Álcali
+Paula Aya,paula.aya@vaxsolutions.mx,Carrier Lead,,,Full DryVan,,paula_aya,paula.aya@vaxsolutions.mx,Carrier Lead,paulavax,,Almex
+Andrea Vazquez,andrea.vazquez@vaxsolutions.mx,Carrier Rep,,,Full Flatbed 40,,andrea_vazquez,andrea.vazquez@vaxsolutions.mx,Carrier Rep,andreavax,,ProTrans
+Ulises Meneses,ulises.meneses@vaxsolutions.mx,Carrier Rep,,,Full Reefer,,ulises_meneses,ulises.meneses@vaxsolutions.mx,Carrier Rep,ulisesvax,,Horizon Home
+Juan Pablo Inzunza,juan.inzunza@vaxsolutions.mx,Carrier Rep,,,Hazmat 53,,juan_inzunza,juan.inzunza@vaxsolutions.mx,Carrier Rep,inzunzavax,,Vitro Envases
+,,,,,Jaula de Volteo,,,,,,,Arkema
+,,,,,Jaula Granelera,,,,,,,Comercializadora y Aleaciones del Noroeste
+,,,,,Lowboy/Double Drop,,,,,,,Graphic Packaging
+,,,,,LTL,,,,,,,Innovarr
+,,,,,Pipa,,,,,,,Atmosphera Verde
+,,,,,Rabón,,,,,,,Clase Azul
+,,,,,Rabón Abierto,,,,,,,Grupo Cimarron
+,,,,,Reefer 53,,,,,,,Traxión
+,,,,,Removable Gooseneck,,,,,,,Plami
+,,,,,Single  Container Reefer 20,,,,,,,Jumbocel
+,,,,,Single Container 20,,,,,,,Nestle México
+,,,,,Single Container 40,,,,,,,Mauser Packaging International
+,,,,,Single Container Reefer 40,,,,,,,Iron Mountain Mexico
+,,,,,Single DryVan,,,,,,,Toyo Kasei
+,,,,,Single Flatbed 40,,,,,,,ProTrans International
+,,,,,Single Reefer,,,,,,,Milwaukee Tools
+,,,,,Sprinter Van,,,,,,,GV Carriers
+,,,,,Stepdeck 53,,,,,,,GST Automotive
+,,,,,Stepdeck Conestoga,,,,,,,Cristales Inastillables
+,,,,,Straight Truck,,,,,,,Olexo Foods México
+,,,,,Tolva,,,,,,,SJ Pack
+,,,,,Torton,,,,,,,Ready Solutions
+,,,,,Torton Abierto,,,,,,,DIMSA
+,,,,,,,,,,,,Quala
+,,,,,,,,,,,,SEPHNOS
+,,,,,,,,,,,,Tricorbraun
+,,,,,,,,,,,,Birdman
+,,,,,,,,,,,,La Moderna
+,,,,,,,,,,,,Naturasol
+,,,,,,,,,,,,Wave Optics
+,,,,,,,,,,,,QUIMIPOL
+,,,,,,,,,,,,ULD
+,,,,,,,,,,,,Pridgeon & Clay
+,,,,,,,,,,,,Maquiladora Gráfica
+,,,,,,,,,,,,Menshen
+,,,,,,,,,,,,DL Medica
+,,,,,,,,,,,,FI Manufacturing
+,,,,,,,,,,,,Colchones América
+,,,,,,,,,,,,Niagara
+,,,,,,,,,,,,AKG Termotecnologia
+,,,,,,,,,,,,Industrias Metálicas del Envase
+,,,,,,,,,,,,Symrise USA
+,,,,,,,,,,,,Symrise
+,,,,,,,,,,,,Tyson Foods
+,,,,,,,,,,,,Envases de Sinaloa
+,,,,,,,,,,,,West Rock
+,,,,,,,,,,,,Grupo Arco Iris Plasticos
+,,,,,,,,,,,,PROANSA
+,,,,,,,,,,,,Comercializadora Atradium
+,,,,,,,,,,,,Bruni
+,,,,,,,,,,,,Recubrimientos Plasticos
+,,,,,,,,,,,,Global Ends
+,,,,,,,,,,,,Tremain
+,,,,,,,,,,,,Guy Wire Co.
+,,,,,,,,,,,,Sistela
+,,,,,,,,,,,,Bolero
+,,,,,,,,,,,,Team Diversified
+,,,,,,,,,,,,Fuego Envasado
+,,,,,,,,,,,,Flash Container
+,,,,,,,,,,,,Wham Picture
+,,,,,,,,,,,,Miraclon
+,,,,,,,,,,,,Reusable Transport Packaging
+,,,,,,,,,,,,Wood Mizer
+,,,,,,,,,,,,Lubricantes Fuchs
+,,,,,,,,,,,,Fives Cinetic Group
+,,,,,,,,,,,,Taxan
+,,,,,,,,,,,,Empaques Modernos de Guadalajara
+,,,,,,,,,,,,Grupo Perfimexa
+,,,,,,,,,,,,ICAPSA
+,,,,,,,,,,,,5S Erosion Solutions
+,,,,,,,,,,,,Bostik Mexicana
+,,,,,,,,,,,,Senoplast
+,,,,,,,,,,,,Samsung SDS
+,,,,,,,,,,,,Orox-co
+,,,,,,,,,,,,Direct Pack de México
+,,,,,,,,,,,,DM International
+,,,,,,,,,,,,Hogan Stakes
+,,,,,,,,,,,,Glinsa
+,,,,,,,,,,,,BUNGE
+,,,,,,,,,,,,Armasel
+,,,,,,,,,,,,KlassCo
+,,,,,,,,,,,,Bio Pappel
+,,,,,,,,,,,,Goodpack México
+,,,,,,,,,,,,Dream Pack Group
+,,,,,,,,,,,,Amcor Rigid Packaging de México
+,,,,,,,,,,,,Paroli 
+,,,,,,,,,,,,Cervs Recycling
+,,,,,,,,,,,,Sport Solutions
+,,,,,,,,,,,,UWipes
+,,,,,,,,,,,,Dürr Universal
+,,,,,,,,,,,,Grupo CG Maderas
+,,,,,,,,,,,,International Paper
+,,,,,,,,,,,,Canmex Dollar Stores
+,,,,,,,,,,,,Coppel
+,,,,,,,,,,,,Marcas Nestle
+,,,,,,,,,,,,CPW México
+,,,,,,,,,,,,Lidercel
+,,,,,,,,,,,,Gemtron de México
+,,,,,,,,,,,,DIPISUR
+,,,,,,,,,,,,OWENS AMERICA
+,,,,,,,,,,,,TOYO FOODS BOEKI
+,,,,,,,,,,,,KUMCO
+,,,,,,,,,,,,Echo Global Logistics
+,,,,,,,,,,,,GLM Group
+,,,,,,,,,,,,ESJ
+,,,,,,,,,,,,DLX Logistix
+,,,,,,,,,,,,Lumaol USA
+,,,,,,,,,,,,Multimatic
+,,,,,,,,,,,,Stephen Gould de México
+,,,,,,,,,,,,Viscofan USA
+,,,,,,,,,,,,Plastic Trends
+,,,,,,,,,,,,Distribuidora del Secreto
+,,,,,,,,,,,,Grupo Julio´s 
+,,,,,,,,,,,,Avery Dennison
+,,,,,,,,,,,,PSC S & S Industries de Mexico
+,,,,,,,,,,,,Topura Fastener De México
+,,,,,,,,,,,,FIFCO
+,,,,,,,,,,,,HEXPOL Compounding
+,,,,,,,,,,,,RTC
+,,,,,,,,,,,,Palos Garza
+,,,,,,,,,,,,Maflow
+,,,,,,,,,,,,PAS APPLIANCE SYSTEMS
+,,,,,,,,,,,,Eco agri tec
+,,,,,,,,,,,,Best Ingredients México
+,,,,,,,,,,,,Grupo Estudiat
+,,,,,,,,,,,,OUT MOVEMENT AND LOGISTICS SA DE CV
+,,,,,,,,,,,,International Metals de Mexico
+,,,,,,,,,,,,Lubricantes Fuchs
+,,,,,,,,,,,,Sante
+,,,,,,,,,,,,Eco Lean
+,,,,,,,,,,,,Bacardi
+,,,,,,,,,,,,Nufer plus
+,,,,,,,,,,,,Mexifrutas
+,,,,,,,,,,,,Bostik XB
+,,,,,,,,,,,,Comegsa
+,,,,,,,,,,,,Sky Jack México
+,,,,,,,,,,,,Alimentos Susalia
+,,,,,,,,,,,,Distribuidora PJ
+,,,,,,,,,,,,Bioflex
+,,,,,,,,,,,,Estapack
+,,,,,,,,,,,,Crawford packaging
+,,,,,,,,,,,,Operadoras en Servicios Comerciales (Italika)
+,,,,,,,,,,,,Comercializadora de Motocicletas de Calidad (Italika)
+,,,,,,,,,,,,Laziali
+,,,,,,,,,,,,Desoflex
+,,,,,,,,,,,,Suzuyo
+,,,,,,,,,,,,Lucas Bols
+,,,,,,,,,,,,Schreiber Foods
+,,,,,,,,,,,,Sk Express
+,,,,,,,,,,,,Valvoline
+,,,,,,,,,,,,Veladora Mexico
+,,,,,,,,,,,,Phoenix Packaging
+,,,,,,,,,,,,Kiye
+,,,,,,,,,,,,Pasion Por Madera
+,,,,,,,,,,,,Sodimac
+,,,,,,,,,,,,GLM Group
+,,,,,,,,,,,,BRIMEX Energy 
+,,,,,,,,,,,,Italli
+,,,,,,,,,,,,Bekax
+,,,,,,,,,,,,Tupperware
+,,,,,,,,,,,,JMA Llaves Altuna
+,,,,,,,,,,,,American Anchor
+,,,,,,,,,,,,B fashionistas
+,,,,,,,,,,,,Propasa
+,,,,,,,,,,,,Precision Resources
+,,,,,,,,,,,,IMPORTADORA MINISO
+,,,,,,,,,,,,ADJ Industries USA
+,,,,,,,,,,,,Recologic
+,,,,,,,,,,,,SPRING AIR
+,,,,,,,,,,,,SOLAREVER
+,,,,,,,,,,,,Mubit
+,,,,,,,,,,,,Fibras Opticas de México
+,,,,,,,,,,,,SINAX
+,,,,,,,,,,,,Zagis USA
+,,,,,,,,,,,,Solarever
+,,,,,,,,,,,,Templa Cristal y aceros 
+,,,,,,,,,,,,AGC
+,,,,,,,,,,,,FOMS Colombia
+,,,,,,,,,,,,Indelpro 
+,,,,,,,,,,,,Tododren
+,,,,,,,,,,,,Valle Redondo
+,,,,,,,,,,,,Irrigaciones y Servicios Industriales
+,,,,,,,,,,,,Tapon Corona
+,,,,,,,,,,,,M. Holland Latinoamerica 
+,,,,,,,,,,,,Eco Trade 
+,,,,,,,,,,,,Resinas de Alto Rendimiento
+,,,,,,,,,,,,SEJUM 
+,,,,,,,,,,,,POCHTECA MATERIAS PRIMAS
+,,,,,,,,,,,,Smart Bamboo
+,,,,,,,,,,,,Operadora Marta
+,,,,,,,,,,,,Gesol
+,,,,,,,,,,,,Truffino
+,,,,,,,,,,,,Bridgeco
+,,,,,,,,,,,,Stylos Tech Mexico
+,,,,,,,,,,,,Lpet
+,,,,,,,,,,,,ASMAK TEC
+,,,,,,,,,,,,Corey Solar
+,,,,,,,,,,,,La Universal Impresora
+,,,,,,,,,,,,Gustinos
+,,,,,,,,,,,,IVEX MANUFACTURING
+,,,,,,,,,,,,Bicicletas Mercurio 
+,,,,,,,,,,,,Corey Energy
+,,,,,,,,,,,,BASF MEXICANA
+,,,,,,,,,,,,Plantamex
+,,,,,,,,,,,,Active Leasing 
+,,,,,,,,,,,,Direct Pack International 
+,,,,,,,,,,,,Oleoespecias
+,,,,,,,,,,,,Industria Nacional de Detergentes
+,,,,,,,,,,,,ACH FOODS
+,,,,,,,,,,,,PISA
+,,,,,,,,,,,,EDP
+,,,,,,,,,,,,Grupo Comercial TRZ Internacional 
+,,,,,,,,,,,,Digrans 
+,,,,,,,,,,,,GRUPO INDUSTRIAL ARTES GRAFICAS
+,,,,,,,,,,,,Vimifos

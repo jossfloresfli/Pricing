@@ -1,0 +1,13 @@
+- [Slack connector scopes & channel posting](slack-connector.md) — bot needs manual /invite; no groups:read/channels:join; list public_channel only; fire-and-forget sends.
+- [drizzle-kit version pin](drizzle-kit-version-pin.md) — keep drizzle-kit on stable 0.31.x with drizzle-orm 0.4x; 1.0 RC breaks db:push. Use the esbuild override for CVEs instead.
+- [Protected Cost Orchestrator](protected-cost-orchestrator.md) — ML orchestrator runs as Python child service; never re-code its policy in TS/frontend; prod paths need cwd fallback.
+- [Google Sheets connector via SDK proxy](google-sheets-connector.md) — legacy v2 token-fetch returns empty items; must use @replit/connectors-sdk proxy.
+- [Copilot shared persistence](copilot-shared-persistence.md) — quotes & daily quotas live in shared Postgres (copilot_quotes / copilot_usage); SQLite only as dev fallback without DATABASE_URL.
+- [Orchestrator route keys & history](orchestrator-route-keys.md) — route history is a frozen training map, not live loadboard; Google-format locations must be canonicalized to `city, full state`.
+- [Persistencia de explicaciones del copiloto](copilot-explanations-persistence.md) — identidad quote+ruta+model+pricing_hash; reclamo atómico con lease 5 min; DDL en server/migrate.ts; psycopg requerido por el servicio Python.
+- [Capa regional del copiloto](copilot-regional-support.md) — artefacto KMeans congelado (14 regiones, checksum), derivación offline, niveles siempre not_evaluated hasta aprobación; unittest, no pytest.
+- [Caché de rutas compartido](route-cache-shared.md) — google_maps_route_cache en Postgres es la fuente de verdad; CSV solo semilla/lectura; siembra idempotente por el timeout de 5s de migraciones.
+- [Presentación USD del copiloto](copilot-usd-display.md) — Crossborder/Domestic: salida completa en USD, retrieval sigue en MXN; el tipo de cambio va en el hash de identidad.
+- [Copiloto explicador](copilot-integration.md) — import copilot before ProtectedCostService (src/ shadows vax_pricing); pkill serve.py after Python changes (orphan child on 8100 survives restarts).
+- [Diagnóstico de Places publicado](places-build-config.md) — ausencia de clave en Secrets actuales no demuestra ausencia en la versión publicada; verificar ambas antes de atribuir el fallo.
+- [KPI de tiempo de cotización](quote-timing-kpi.md) — estimación histórica creación→envío, con exclusiones visibles; National y Port Freight son divisiones separadas.

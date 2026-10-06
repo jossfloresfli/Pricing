@@ -1,0 +1,418 @@
+Construye una mini-app interna llamada “VAX Pricing Hub”, estilo SaaS, con diseño moderno, limpia, minimalista, visual, intuitiva. Debe funcionar como una plataforma para gestión de cotizaciones, aprobaciones y registro de tarifas.
+
+El objetivo: reemplazar un proceso manual que hoy se hace en Google Sheets (ver estructura de datos abajo).
+
+La app debe incluir:
+
+Frontend (Next.js + Tailwind o React + Material UI).
+
+Backend (Supabase o Firebase con autenticación por roles).
+
+Base de datos inicial para Pricing Requests y Pricing File.
+
+Pantallas principales y su UX completa.
+
+Lógica básica de recomendación de tarifa basada en promedios históricos.
+
+Componentes listos para interactuar (modales, formularios, dashboards, etc.).
+
+Control de roles y permisos como se explica abajo.
+
+🔐 ROLES Y PERMISOS
+
+Implementa los siguientes roles:
+
+1. Carrier Rep
+
+Crear nuevas solicitudes de cotización.
+
+Ver solo sus propias solicitudes.
+
+Editar antes de enviar al Pricing Lead.
+
+No puede aprobar tarifas.
+
+2. Carrier Lead
+
+Ver todas las solicitudes de su equipo.
+
+Enviar solicitudes a Carrier Manager o Pricing.
+
+Agregar comentarios.
+
+3. Carrier Manager
+
+Ver todas las solicitudes del área carriers.
+
+Validar información.
+
+Enviar a Pricing o devolver a rep.
+
+4. Sales Rep
+
+Crear solicitudes de cotización.
+
+Consultar el estatus.
+
+No puede aprobar ni modificar después de enviada.
+
+5. Pricing
+
+Ver todas las solicitudes asignadas.
+
+Aprobar, rechazar o ajustar tarifas.
+
+Registrar la tarifa final en el Pricing File.
+
+Añadir notas de pricing.
+
+6. Superadmin
+
+Ver todo.
+
+Editar catálogos (clientes, carriers, productos, divisiones).
+
+Exportar reportes.
+
+Modificar reglas del sistema.
+
+📦 ESTRUCTURA DE DATOS (BASADA EN EL ARCHIVO DE GOOGLE SHEETS)
+Tabla: pricing_requests
+
+Debe incluir:
+
+Información Comercial:
+
+cliente
+
+prospecto
+
+sales_rep
+
+division
+
+link_google_sheet (opcional para referencia)
+
+Información del Requerimiento:
+
+tipo_equipo
+
+peso
+
+unidad_medida (TON, KG, etc.)
+
+producto
+
+certificacion_requerida
+
+tiempo_carga_descarga
+
+accesorios
+
+requiere_cruce
+
+ciudad_cruce
+
+notas_de_pricing
+
+notas_de_carga_comercial
+
+feedback
+
+Origen/Destino (pueden ser arrays o registros independientes):
+
+origen
+
+cp_origen
+
+destino
+
+cp_destino
+
+Opciones de carrier (múltiples):
+
+carrier_option_1 (precio compra)
+
+carrier_option_2
+
+carrier_option_3
+
+carrier_option_4
+
+carrier_option_5
+
+carrier (opción seleccionada)
+
+compra_promedio
+
+volumen
+
+target_cliente
+
+Venta sugerida / resultado:
+
+costo_esperado
+
+venta_sugerida
+
+utilidad_porcentaje
+
+Status & Auditoría:
+
+status_pricing (Pendiente / En revisión / Aprobado / Rechazado / Entregado)
+
+status_comercial (Solicitud activa / Cerrada / Archivada)
+
+pricing_rep_initial
+
+pricing_rep_final
+
+fecha_creacion
+
+fecha_actualizacion
+
+📚 Tabla: pricing_file (tarifas aprobadas)
+
+id_request
+
+cliente
+
+origen
+
+destino
+
+equipo
+
+costo
+
+tarifa_aprobada
+
+margen
+
+carrier
+
+fecha_vigencia
+
+fecha_aprobacion
+
+aprobado_por
+
+🎨 UX / UI QUE DEBE CONSTRUIR LA IA
+1. Login + Roles
+
+Pantalla limpia, corporativa, login con Google.
+
+2. Dashboard principal
+
+Una vista tipo SaaS con:
+
+Tarjetas resumen:
+
+Cotizaciones pendientes
+
+Cotizaciones enviadas a Pricing
+
+Cotizaciones aprobadas
+
+Cotizaciones devueltas
+
+Gráficos simples (opcional inicial):
+
+Volumen por cliente
+
+Promedio de tarifa por ruta
+
+Reps con más solicitudes
+
+3. Pricing Board (vista principal)
+
+Vista tipo Kanban con columnas:
+
+Pendiente de Información
+
+Por Revisar
+
+En Pricing
+
+Aprobado
+
+Rechazado
+
+Cada tarjeta debe mostrar:
+
+Cliente
+
+Origen → Destino
+
+Tipo de equipo
+
+Carrier seleccionado
+
+Costo esperado
+
+Venta sugerida
+
+Margen (%)
+
+Status
+
+Fecha
+
+Botón en cada tarjeta: “Ver Detalle”.
+
+4. Formulario “Nueva Cotización”
+
+Debe recrear exactamente los campos y estructura que se ve en el screenshot (incluyendo agrupaciones):
+
+Sección A — Información Comercial
+
+Cliente (dropdown)
+
+Prospecto
+
+Sales Rep
+
+División
+
+Sección B — Requerimiento
+
+Tipo de Equipo (dropdown)
+
+Peso + unidad
+
+Producto
+
+Certificación requerida
+
+Tiempo de carga/descarga
+
+Accesorios
+
+Requiere cruce → Sí/No
+
+Ciudad de Cruce
+
+LINK (URL)
+
+Sección C — Opciones de Carriers
+
+Una tabla editable donde se capturan rutas y tarifas.
+
+Columnas:
+
+Origen
+
+CP Origen
+
+Destino
+
+CP Destino
+
+Carrier Option N
+
+Compra Promedio
+
+Volumen
+
+Target Cliente
+
+Sección D — Información de Venta
+
+Costo esperado
+
+Venta sugerida
+
+Utilidad (%)
+
+IMPORTANTE:
+Implementar botón “Calcular venta sugerida” que use el modelo de recomendación explicado más abajo.
+
+Sección E — Notas
+
+Notas de Pricing
+
+Notas de Carga Comercial
+
+Feedback
+
+5. Detalle de la Cotización
+
+Pantalla completa con tabs:
+
+Overview
+
+Requerimiento
+
+Carrier Options
+
+Venta
+
+Historial
+
+Comentarios
+
+Botones según rol:
+
+Para Pricing: Aprobar / Rechazar / Ajustar
+
+Para Reps: Editar / Enviar a Aprobación
+
+Para Managers: Validar
+
+🤖 MODELO SIMPLE DE RECOMENDACIÓN DE TARIFAS (VERSIÓN INICIAL)
+
+Crear un helper en backend:
+
+calculateSuggestedRate(request):
+
+Buscar en pricing_file tarifas aprobadas con:
+
+Mismo origen
+
+Mismo destino
+
+Mismo equipo
+
+Calcular promedio de tarifa (últimos 60 días).
+
+Sumar un margen base configurable (ej. 10–20%).
+
+Si no encuentra histórico → retornar "Sin histórico disponible".
+
+Resultado regresa a UI como tooltip o badge:
+
+“Tarifa sugerida basada en 12 registros históricos: $70,500 MXN”
+
+🌐 6. PANTALLA DE PRICING FILE
+
+Tabla tipo Notion:
+
+Columnas:
+
+Ruta (Origen → Destino)
+
+Equipo
+
+Carrier
+
+Costo
+
+Tarifa aprobada
+
+Margen
+
+Fecha aprobación
+
+Quién aprobó
+
+Vigencia
+
+Filtros:
+
+Cliente
+
+Carrier
+
+Rango de fechas
+
+Por margen

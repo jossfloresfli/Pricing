@@ -1,0 +1,2 @@
+"""VAX Pricing MVP package."""
+

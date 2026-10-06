@@ -1,0 +1,252 @@
+{
+  "schema_version": "copilot-evidence-v3",
+  "built_at": "2026-07-28T23:00:00+00:00",
+  "source_count": 25,
+  "chunk_count": 423,
+  "guidance_chunk_count": 257,
+  "max_chunk_words": 350,
+  "authority_counts": {
+    "internal": 81,
+    "official": 322,
+    "secondary": 20
+  },
+  "topic_counts": {
+    "border": 58,
+    "cargo_securement": 12,
+    "carrier_compliance": 68,
+    "currency_fx": 24,
+    "customs": 25,
+    "fuel": 30,
+    "hazardous_cargo": 5,
+    "historical_pricing": 144,
+    "hours_of_service": 9,
+    "model_policy": 47,
+    "operations_documents": 107,
+    "port_operations": 39,
+    "regional_segmentation": 26,
+    "road_conditions": 24,
+    "security": 19,
+    "service_risk": 32,
+    "tax_billing": 49,
+    "tolls": 83,
+    "vehicle_compliance": 12
+  },
+  "fresh_topic_counts": {
+    "border": 33,
+    "cargo_securement": 12,
+    "carrier_compliance": 55,
+    "currency_fx": 22,
+    "customs": 13,
+    "fuel": 11,
+    "hazardous_cargo": 5,
+    "historical_pricing": 105,
+    "hours_of_service": 9,
+    "model_policy": 41,
+    "operations_documents": 93,
+    "port_operations": 29,
+    "regional_segmentation": 25,
+    "road_conditions": 24,
+    "security": 6,
+    "service_risk": 30,
+    "tax_billing": 33,
+    "tolls": 28,
+    "vehicle_compliance": 12
+  },
+  "stale_topic_counts": {
+    "border": 25,
+    "carrier_compliance": 13,
+    "currency_fx": 2,
+    "customs": 12,
+    "fuel": 19,
+    "historical_pricing": 39,
+    "model_policy": 6,
+    "operations_documents": 14,
+    "port_operations": 10,
+    "regional_segmentation": 1,
+    "security": 13,
+    "service_risk": 2,
+    "tax_billing": 16,
+    "tolls": 55
+  },
+  "territory_counts": {
+    "crossborder": 36,
+    "mexico": 289,
+    "usa": 69
+  },
+  "freshness_counts": {
+    "dynamic": 166,
+    "regulatory": 17,
+    "structural": 164,
+    "tariff_schedule": 76
+  },
+  "stale_chunk_count": 107,
+  "chunks_without_verified_at": 0,
+  "excluded_evidence": {
+    "terms": [
+      "accesorial",
+      "accesorios"
+    ],
+    "chunk_count": 1,
+    "reason": "post-quote volatile charges are outside the copilot pricing evidence contract"
+  },
+  "copilot_readiness": {
+    "status": "ready_for_retrieval_evaluation",
+    "required_topics": [
+      "border",
+      "cargo_securement",
+      "carrier_compliance",
+      "currency_fx",
+      "customs",
+      "fuel",
+      "hazardous_cargo",
+      "historical_pricing",
+      "hours_of_service",
+      "model_policy",
+      "operations_documents",
+      "port_operations",
+      "regional_segmentation",
+      "road_conditions",
+      "security",
+      "service_risk",
+      "tax_billing",
+      "tolls",
+      "vehicle_compliance"
+    ],
+    "missing_topics": [],
+    "topics_without_fresh_chunks": [],
+    "required_territories": [
+      "crossborder",
+      "mexico",
+      "usa"
+    ],
+    "missing_territories": [],
+    "rule": "stale chunks may provide dated background but cannot support current-condition claims"
+  },
+  "sources": [
+    {
+      "path": "C:/Users/santo/Documents/VAX_Pricing/rag/documents/crossborder_bts_border.md",
+      "sha256": "e4cc8aa3ac184f34a98ccfea75c4f2914d0d1d8bf2d7905b200b88254e4a5f88",
+      "chunks": 12
+    },
+    {
+      "path": "C:/Users/santo/Documents/VAX_Pricing/rag/documents/guia_explicacion_para_ventas.md",
+      "sha256": "8b53330cacf527d21edcdf6ef8a99c2c7c38417b3dfe076b4e23dc018fedb181",
+      "chunks": 15
+    },
+    {
+      "path": "C:/Users/santo/Documents/VAX_Pricing/rag/documents/historico_vax_riesgos_datos.md",
+      "sha256": "891a6fae51d95acfd275190f31f7f12fd25df306d223433a243f50c1cbb1db14",
+      "chunks": 10
+    },
+    {
+      "path": "C:/Users/santo/Documents/VAX_Pricing/rag/documents/mercado_combustibles_petroleo.md",
+      "sha256": "b6dded09a68b5658e16f2db6cedb78633e4961327ce22d1b248113efb47183be",
+      "chunks": 18
+    },
+    {
+      "path": "C:/Users/santo/Documents/VAX_Pricing/rag/documents/mexico_anam_aduanas.md",
+      "sha256": "f333c7d3788fe6741729435713dc6e27c7fe53e5ffc7859051e0d4661f7dd23f",
+      "chunks": 13
+    },
+    {
+      "path": "C:/Users/santo/Documents/VAX_Pricing/rag/documents/mexico_autotransporte_sict.md",
+      "sha256": "1b1272efd37b5949bb230e5a5fc3ef397997f63234434d34543f53793583c41c",
+      "chunks": 8
+    },
+    {
+      "path": "C:/Users/santo/Documents/VAX_Pricing/rag/documents/mexico_carreteras_clima_y_contingencias.md",
+      "sha256": "21e729738eb697c8a3ba6e619936a7fa8655960f71e4faed19c1241e6cb7271d",
+      "chunks": 23
+    },
+    {
+      "path": "C:/Users/santo/Documents/VAX_Pricing/rag/documents/mexico_documentos_operacion_sict.md",
+      "sha256": "203e75e4351e0066429aa2e8b61fb2315e9a4fef9499ce7ce36a1335230b974a",
+      "chunks": 10
+    },
+    {
+      "path": "C:/Users/santo/Documents/VAX_Pricing/rag/documents/mexico_impuestos_facturacion_y_carta_porte.md",
+      "sha256": "07c537696c793a9e4f21e4d5a999c2d3afc63fc25e56c788185c6faa19c59adb",
+      "chunks": 22
+    },
+    {
+      "path": "C:/Users/santo/Documents/VAX_Pricing/rag/documents/mexico_materiales_peligrosos_y_carga_especial.md",
+      "sha256": "6fb74dd329c58aae700aeefbf96867b5631f1396821e03bfdad9033e27f3e556",
+      "chunks": 28
+    },
+    {
+      "path": "C:/Users/santo/Documents/VAX_Pricing/rag/documents/mexico_moneda_tipo_de_cambio_y_vigencia.md",
+      "sha256": "da76d1c6884e51db70a9981f3e17b728aafe87d4916f3c114aef566ab5e17e6f",
+      "chunks": 16
+    },
+    {
+      "path": "C:/Users/santo/Documents/VAX_Pricing/rag/documents/mexico_peajes_casetas.md",
+      "sha256": "cc755e577aa03171749d20365d5b10e97e6be12f225c83cb649842ae8f6bbf50",
+      "chunks": 11
+    },
+    {
+      "path": "C:/Users/santo/Documents/VAX_Pricing/rag/documents/mexico_puertos_y_contenedores.md",
+      "sha256": "124c53c7123de9120eacd1c019ceac62517339c604b7eb3396ed6696e2aa940c",
+      "chunks": 21
+    },
+    {
+      "path": "C:/Users/santo/Documents/VAX_Pricing/rag/documents/mexico_seguridad_rutas.md",
+      "sha256": "76dc2918d7f53049210f4c3efa30d89b3f016ab0ebe4b3d08294262b233157da",
+      "chunks": 15
+    },
+    {
+      "path": "C:/Users/santo/Documents/VAX_Pricing/rag/documents/mexico_validacion_transportista_unidad_y_operador.md",
+      "sha256": "a6d4a6ec7608c598e7d22527f8cbff8e252c29d05b6b16a51de09f7a099e7007",
+      "chunks": 23
+    },
+    {
+      "path": "C:/Users/santo/Documents/VAX_Pricing/rag/documents/modelo_segmentacion_regional_national.md",
+      "sha256": "c7e3b6a4ede46d209277eedc4b58115e4867d93498bb3853745ffb17cbea6901",
+      "chunks": 24
+    },
+    {
+      "path": "C:/Users/santo/Documents/VAX_Pricing/rag/documents/usa_fmcsa_cargo_securement.md",
+      "sha256": "ea54cc71f5c6fbf2f95185f15c2df1936a8a73364b7132947d17504726a98f19",
+      "chunks": 10
+    },
+    {
+      "path": "C:/Users/santo/Documents/VAX_Pricing/rag/documents/usa_fmcsa_carrier_compliance.md",
+      "sha256": "da4216c7f16de73f07cde2b6b01b6976c72cd22fa92c168dde87f47fc2039676",
+      "chunks": 15
+    },
+    {
+      "path": "C:/Users/santo/Documents/VAX_Pricing/rag/documents/usa_fmcsa_hos.md",
+      "sha256": "e9b80aa56b344938587558dd0d3c7ae36eecdc0aae76503600d23d22d9f6c9d5",
+      "chunks": 9
+    },
+    {
+      "path": "C:/Users/santo/Documents/VAX_Pricing/rag/documents/usa_market_costs_eia_fred.md",
+      "sha256": "256185b4287d7d4c0d78900c137d339b9fe1feb4217343a4a91e960025f5b108",
+      "chunks": 12
+    },
+    {
+      "path": "C:/Users/santo/Documents/VAX_Pricing/rag/documents/capufe_tarifas_vigentes_2024_09.pdf",
+      "sha256": "254f794e0c5e40f2ceadc79296a91c0390281c02bed8ee47aebb996385d36881",
+      "chunks": 26
+    },
+    {
+      "path": "C:/Users/santo/Documents/VAX_Pricing/rag/documents/capufe_tarifas_vigentes_2025.pdf",
+      "sha256": "40d646cffbf8c17d50aa5d7dc0f73d801a7d063bb0abf4bb15b33cbf7a758b71",
+      "chunks": 25
+    },
+    {
+      "path": "C:/Users/santo/Documents/VAX_Pricing/rag/documents/capufe_tarifas_vigentes_2026.pdf",
+      "sha256": "5782e3194015c8f87b108837723731d33fb207bd8f566c648fb915220271e6c6",
+      "chunks": 25
+    },
+    {
+      "path": "C:/Users/santo/Documents/VAX_Pricing/experiments/modelos_v2_2026/protected_cost_orchestrator_20260717/interface/MODEL_POLICY.md",
+      "sha256": "1b67dc670208c806278488d0ce6f6ab3cb35d3499a67dcab41a3af1c00094ecc",
+      "chunks": 23
+    },
+    {
+      "path": "C:/Users/santo/Documents/VAX_Pricing/experiments/modelos_v2_2026/protected_cost_orchestrator_20260717/contract.template.json",
+      "sha256": "77b5d7a49fcc72a50b9c2624ccf1104ceaa576cefcb2ec088f582f9ac1a2af26",
+      "chunks": 9
+    }
+  ]
+}

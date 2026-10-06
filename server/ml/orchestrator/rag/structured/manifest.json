@@ -1,0 +1,89 @@
+{
+  "schema_version": "copilot-evidence-v3",
+  "built_at": "2026-07-28T23:00:00+00:00",
+  "historical_input": {
+    "path": "C:/Users/santo/Documents/VAX_Pricing/data/processed/loadboard_clean_full_google_enriched.csv",
+    "sha256": "697e7bc8bc89c3941768c362bb1a6948a63061625627c48c19d0f4a16794c215"
+  },
+  "documents_directory": "C:/Users/santo/Documents/VAX_Pricing/rag/documents",
+  "counts": {
+    "document_chunks": 423,
+    "historical_loads": 10435,
+    "historical_summaries": 4203,
+    "sales_historical_summaries": 4203
+  },
+  "document_quality": {
+    "source_count": 25,
+    "max_chunk_words": 350,
+    "stale_chunk_count": 107,
+    "chunks_without_verified_at": 0,
+    "readiness_status": "ready_for_retrieval_evaluation",
+    "topics_without_fresh_chunks": []
+  },
+  "historical_quality": {
+    "input_rows": 12811,
+    "eligible_rows": 10435,
+    "excluded_rows": 2376,
+    "directed_route_count": 1063
+  },
+  "embedding_status": "generated",
+  "copilot_status": "runtime_implementation_available",
+  "copilot_communication": {
+    "audience": "sales_and_marketing",
+    "language": "plain_commercial_spanish",
+    "technical_metrics_user_visible": false,
+    "retrieval_artifact": "sales_historical_summaries.jsonl",
+    "required_focus": [
+      "route",
+      "equipment",
+      "price",
+      "sale",
+      "profit",
+      "history",
+      "validity",
+      "risks",
+      "next_action"
+    ]
+  },
+  "excluded_from_copilot_evidence": {
+    "accessorials": true,
+    "reason": "volatile post-quote charges; not part of the pre-quote explanation contract"
+  },
+  "artifacts": {
+    "document_chunks": {
+      "path": "C:/Users/santo/Documents/VAX_Pricing/rag/structured/document_chunks.jsonl",
+      "sha256": "b434c0e7bc4f8849a5001dae727a3159d6ff812f0823bf70d90a3b4451200979"
+    },
+    "historical_loads": {
+      "path": "C:/Users/santo/Documents/VAX_Pricing/rag/structured/historical_loads.jsonl",
+      "sha256": "b2214ddc32b5c10ba5940c0f578befb68633678d9eea220e75820204e4e40e50"
+    },
+    "historical_summaries": {
+      "path": "C:/Users/santo/Documents/VAX_Pricing/rag/structured/historical_summaries.jsonl",
+      "sha256": "c81844d3686c64396e93adffdc6449318ad0617a7acb1b37edbe3ee341d80ee8"
+    },
+    "sales_historical_summaries": {
+      "path": "C:/Users/santo/Documents/VAX_Pricing/rag/structured/sales_historical_summaries.jsonl",
+      "sha256": "ba137ea76c7184aff232d2d9c62e3ac0c8adfa4a22401a3878a10fd2bb2815f1"
+    },
+    "document_coverage": {
+      "path": "C:/Users/santo/Documents/VAX_Pricing/rag/structured/document_coverage.json",
+      "sha256": "6c36e514b3a9de364021a372e31eb46a84e68535d601dddafc6e3f713ec1d34f"
+    },
+    "historical_audit": {
+      "path": "C:/Users/santo/Documents/VAX_Pricing/rag/structured/historical_audit.json",
+      "sha256": "d3dbbc6335d094dfcd4532f30ef47a4494dd6af876887ad053cad9af2f627adf"
+    },
+    "schema": {
+      "path": "C:/Users/santo/Documents/VAX_Pricing/rag/structured/schema.json",
+      "sha256": "a0d7abf5030e868a74846f97d9fe243feed85dcd137f3b6b7288ea4d8e60b8e0"
+    }
+  },
+  "embeddings": {
+    "model": "text-embedding-3-small",
+    "count": 423,
+    "estimated_input_tokens": 88102,
+    "vectors_path": "/home/runner/workspace/server/ml/orchestrator/rag/vectors/document_embeddings.npz",
+    "metadata_path": "/home/runner/workspace/server/ml/orchestrator/rag/vectors/document_embeddings.json"
+  }
+}

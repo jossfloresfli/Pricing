@@ -1,0 +1,89 @@
+{
+  "schema_version": "copilot-evidence-v3",
+  "input_rows": 12811,
+  "training_candidate_rows": 10451,
+  "invoiced_rows": 10810,
+  "eligible_rows": 10435,
+  "excluded_rows": 2376,
+  "training_candidate_excluded_rows": 45,
+  "exclusion_counts_nonexclusive": {
+    "not_invoiced": 2001,
+    "created_at_missing": 0,
+    "cost_available_at_missing": 2032,
+    "cost_available_before_creation": 5,
+    "cost_not_positive": 1238,
+    "route_missing": 0,
+    "equipment_missing": 627,
+    "division_missing": 331
+  },
+  "training_candidate_exclusion_counts_nonexclusive": {
+    "not_invoiced": 0,
+    "created_at_missing": 0,
+    "cost_available_at_missing": 41,
+    "cost_available_before_creation": 4,
+    "cost_not_positive": 0,
+    "route_missing": 0,
+    "equipment_missing": 0,
+    "division_missing": 0
+  },
+  "available_at_field": "FECHA DE FACTURA_dt",
+  "decision_at_field": "FECHA CREACIÓN_dt",
+  "availability_min": "2024-10-09T00:00:00+00:00",
+  "availability_max": "2026-07-01T00:00:00+00:00",
+  "directed_route_count": 1063,
+  "load_id_duplicate_count": 0,
+  "field_completeness_pct": {
+    "client": 100.0,
+    "provider": 100.0,
+    "range": 99.92,
+    "flow": 92.41,
+    "distance_km": 99.86,
+    "otp": 100.0,
+    "otd": 100.0,
+    "carrier_rating": 0.0,
+    "border_stop_1": 7.13
+  },
+  "division_counts": {
+    "Crossborder": 3660,
+    "Domestic": 1018,
+    "Maritime": 17,
+    "National": 4731,
+    "Port Freight": 1009
+  },
+  "top_equipment_counts": {
+    "DryVan 53": 8457,
+    "Full Container 40": 561,
+    "Single Container 40": 408,
+    "LTL": 239,
+    "Rabón": 121,
+    "Hazmat 53": 111,
+    "Reefer 53": 107,
+    "Flatbed 53": 93,
+    "Pipa": 91,
+    "Torton": 64,
+    "3.5": 34,
+    "Full Flatbed 40": 30,
+    "DryVan / Reefer": 29,
+    "Torton Abierto": 24,
+    "Single Container 20": 21
+  },
+  "point_in_time_contract": {
+    "rule": "cost_available_at must be earlier than the new quote timestamp",
+    "label_available_at": "FECHA DE FACTURA_dt",
+    "current_quote_realized_cost_allowed": false,
+    "reverse_route_is_exact_match": false,
+    "runtime_source_of_truth": "historical_loads.jsonl",
+    "precomputed_summary_use": "current quotes at or after the evidence build only"
+  },
+  "commercial_value_contract": {
+    "cost_source": "All in rate costo",
+    "sale_source": "All in rate venta",
+    "excluded_sources": [
+      "COSTO EN MXN",
+      "VENTA EN MXN",
+      "All in rate costo total",
+      "All in rate venta total"
+    ],
+    "rule": "La evidencia histórica usa exclusivamente los importes all-in sin total; no incorpora accesoriales ni impuestos de campos alternos."
+  }
+}

@@ -1,0 +1,59 @@
+IMPORTANTE: No hagas NINGÚN cambio. Solo muéstrame y explica el código tal como está.
+
+Necesito las últimas piezas para tener el sistema completamente documentado.
+Responde sección por sección:
+
+═══════════════════════════════════════════
+1. FLUJO DE AUTENTICACIÓN COMPLETO
+═══════════════════════════════════════════
+Muéstrame el código exacto de:
+- El endpoint POST /api/auth/login completo (validación, bcrypt.compare, qué guarda en sesión)
+- El endpoint GET /api/auth/me completo (qué devuelve al frontend)
+- La configuración completa de express-session en server/index.ts
+  (secret, store, cookie options, resave, saveUninitialized)
+- Los middlewares requireAuth y requireSuperadmin completos
+- ¿Cómo funciona el RoleSwitcher del superadmin? ¿Cambia la sesión o solo el estado local?
+
+═══════════════════════════════════════════
+2. FRONTEND: AUTHCONTEXT Y FLUJO DE SESIÓN
+═══════════════════════════════════════════
+- Muéstrame el contenido completo de client/src/contexts/AuthContext.tsx
+- ¿Cómo sabe el frontend si el usuario está logueado? ¿Polling, query al /api/auth/me?
+- ¿Cómo protege las rutas privadas? ¿Hay un componente PrivateRoute o similar?
+- ¿Qué pasa exactamente cuando la sesión expira? ¿Redirect automático al login?
+
+═══════════════════════════════════════════
+3. FRONTEND: REACT QUERY Y ESTADO GLOBAL
+═══════════════════════════════════════════
+- Muéstrame client/src/lib/queryClient.ts completo
+- ¿Cómo está configurado el queryClient? (staleTime, retry, refetchOnWindowFocus, etc.)
+- ¿Cómo maneja errores 401? ¿Hay un interceptor global que redirija al login?
+- ¿Cuál es el patrón de invalidación de cache después de un PATCH o POST?
+  Muéstrame un ejemplo concreto de cómo el frontend refresca datos tras una mutación
+
+═══════════════════════════════════════════
+4. ESTRUCTURA DE RUTAS DEL FRONTEND (wouter)
+═══════════════════════════════════════════
+- Muéstrame el archivo principal de rutas (App.tsx o similar)
+- ¿Cuáles son todas las rutas definidas y qué componente renderiza cada una?
+- ¿Cómo se protegen las rutas de admin (/admin/*)?
+- ¿Hay lazy loading de páginas o todo se importa estático?
+
+═══════════════════════════════════════════
+5. KANBAN: CÓMO FUNCIONA EL DRAG & DROP
+═══════════════════════════════════════════
+- ¿Usa alguna librería de drag & drop o es implementación propia?
+- Muéstrame la estructura del KanbanBoard.tsx: ¿cómo renderiza las 8 columnas?
+- Cuando se arrastra una card entre columnas, ¿qué endpoint llama?
+- ¿Hay animaciones? ¿Qué librería? (vi framer-motion en dependencias)
+
+═══════════════════════════════════════════
+6. MANEJO DE ERRORES Y LOADING STATES
+═══════════════════════════════════════════
+- ¿Hay un sistema global de toasts/alertas para errores?
+  ¿Qué librería usa y cómo se dispara desde los componentes?
+- ¿Cómo manejan los estados de loading en el Kanban y el Dashboard?
+- Si un endpoint falla, ¿qué ve el usuario?
+- ¿Hay algún ErrorBoundary en React?
+
+Responde sección por sección con el código real tal como está.

@@ -1,0 +1,52 @@
+IMPORTANTE: No hagas NINGÚN cambio al código. Solo muéstrame el contenido exacto de los archivos, sin modificar nada.
+
+Necesito el contenido completo de estos archivos para poder replicar el proyecto. Muéstramelos tal cual están:
+
+═══════════════════════════════════════════
+1. VARIABLES DE ENTORNO
+═══════════════════════════════════════════
+- ¿Qué archivo .env o .env.example existe? Muéstrame todas las variables que usa el sistema
+- Si no hay .env.example, busca en el código todas las referencias a process.env.XXXX y lista cada variable que se usa, de qué archivo viene y para qué sirve
+
+═══════════════════════════════════════════
+2. MIGRACIONES Y SCHEMA SQL
+═══════════════════════════════════════════
+- Muéstrame el contenido completo de server/migrate.ts
+- Lista todos los archivos dentro de /migrations y muéstrame el contenido de cada uno
+- ¿Cómo se corre la migración? ¿Con qué comando?
+
+═══════════════════════════════════════════
+3. STORAGE.TS COMPLETO
+═══════════════════════════════════════════
+- Muéstrame el contenido completo de server/storage.ts
+- ¿Qué interface define IStorage? ¿Cuáles son todos sus métodos?
+- ¿Cómo se conecta storage.ts con routes.ts? ¿Se importa como singleton?
+
+═══════════════════════════════════════════
+4. SEED.TS
+═══════════════════════════════════════════
+- Muéstrame el contenido completo de server/seed.ts
+- ¿Qué datos iniciales crea? ¿Cuántos usuarios, qué roles, qué catálogos?
+
+═══════════════════════════════════════════
+5. PACKAGE.JSON Y SCRIPTS
+═══════════════════════════════════════════
+- Muéstrame el contenido completo del package.json (o los package.json si hay más de uno)
+- ¿Cuáles son los scripts exactos de dev, build y start?
+- ¿Cómo se levanta el proyecto localmente paso a paso?
+
+═══════════════════════════════════════════
+6. GOOGLE SHEETS Y SCHEDULER
+═══════════════════════════════════════════
+- Muéstrame el contenido de server/googleSheets.ts
+- ¿Cómo está autenticada la API de Google? ¿Service account o OAuth? ¿Dónde están las credenciales?
+- ¿Qué librería usa el scheduler de las 8AM? Muéstrame ese bloque de código en server/index.ts
+
+═══════════════════════════════════════════
+7. EMAIL SERVICE
+═══════════════════════════════════════════
+- Muéstrame el contenido completo de server/emailService.ts
+- ¿Qué templates de email existen? ¿Son HTML o texto plano?
+- ¿Qué campos exactos necesita la API de Resend?
+
+Responde sección por sección. Si algún archivo es muy largo, muéstrame al menos la estructura completa y las partes más importantes.

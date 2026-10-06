@@ -1,0 +1,612 @@
+INICIO DEL PROMPT
+
+El sistema de pricing y el copiloto ya están integrados y funcionando. Esta tarea consiste en ampliar la recuperación histórica del copiloto para agregar comparaciones por estados, regiones y corredores regionales.
+
+Debes inspeccionar la implementación actual, presentar un plan breve y después modificar los archivos necesarios. No te limites a producir recomendaciones: implementa, documenta y prueba los cambios.
+
+## 1. Objetivo
+
+Agregar al copiloto una nueva capa de evidencia denominada:
+
+`regional_support`
+
+Esta capa permitirá recuperar antecedentes de rutas que no sean exactas ni estén dentro del radio de cercanía, pero que compartan estados, regiones o corredores regionales comparables.
+
+La comparación regional será evidencia complementaria. No debe recalcular precios, cambiar la recomendación del orquestador ni presentarse como garantía de costo, margen o disponibilidad.
+
+## 2. Alcance inicial obligatorio
+
+La recuperación regional sólo será aplicable cuando se cumplan simultáneamente estas condiciones:
+
+- División `National`.
+- Equipo distinto de `LTL`.
+- Coordenadas completas y válidas para origen y destino.
+- Historial disponible antes de la fecha de la cotización.
+- Misma moneda que la cotización.
+- Uso exclusivo de `all_in_rate_cost` y `all_in_rate_sale`.
+- Exclusión de campos que contengan “total”.
+- Exclusión de accesoriales.
+- Segmentación regional National vigente disponible y validada.
+
+Para `Crossborder`, `Domestic`, `Port Freight` y cualquier otra división, devolver `regional_support` como no aplicable. No reutilices automáticamente las regiones National.
+
+## 3. Reutilización de la segmentación existente
+
+El proyecto ya contiene una segmentación de 14 regiones y un componente equivalente a:
+
+`src/vax_pricing/regional_context.py`
+
+Reutiliza:
+
+- Los 14 centros regionales congelados.
+- Los nombres comerciales existentes.
+- El artefacto versionado del modelo National Geo.
+- La versión del modelo.
+- El checksum del artefacto.
+- La lógica existente de asignación por coordenadas.
+
+No:
+
+- Entrenes una segmentación nueva.
+- Cambies los nombres de las regiones.
+- Recalcules centros regionales.
+- Asignes regiones mediante OpenAI.
+- Asignes regiones interpretando solamente el nombre de una ciudad.
+- Mantengas una segunda definición regional independiente.
+- Modifiques la segmentación durante una cotización.
+
+La segmentación debe permanecer versionada junto con el artefacto del modelo.
+
+Si el artefacto no está disponible, tiene un checksum inesperado o no contiene exactamente las regiones esperadas, la comparación regional debe quedar como no disponible sin afectar la cotización ni las demás funciones del copiloto.
+
+## 4. Diferencia entre contexto y evidencia regional
+
+No confundas estos dos conceptos:
+
+### `pricing_result.regional_context`
+
+Indica las regiones de la ruta solicitada y si el modelo seleccionado realmente utilizó información regional para calcular el resultado.
+
+### `historical_support.regional_support`
+
+Contiene antecedentes históricos de estados, regiones y corredores comparables.
+
+La existencia de antecedentes regionales no significa que esos antecedentes hayan causado el costo seleccionado.
+
+El campo `used_by_selected_cost` debe provenir exclusivamente de la trazabilidad del resultado del modelo seleccionado. Nunca debe deducirse porque se encontraron rutas del mismo estado o región.
+
+## 5. Prioridad de recuperación histórica
+
+Conserva la recuperación actual y amplíala con esta prioridad:
+
+1. Misma ruta exacta.
+2. Origen y destino dentro del radio configurado de 30 km.
+3. Mismo estado de origen y mismo estado de destino.
+4. Misma región de origen y misma región de destino.
+5. Misma región de origen y una región de destino relacionada mediante una relación previamente aprobada.
+6. Rutas generales con el mismo equipo y recorrido semejante.
+
+La prioridad debe ser estricta. La evidencia regional no debe desplazar ni ocultar una coincidencia exacta o una ruta cercana más relevante.
+
+En todos los niveles conserva:
+
+- Sentido origen → destino.
+- División.
+- Equipo.
+- Moneda.
+- Compatibilidad de recorrido.
+- Corte temporal de la cotización.
+- Prioridad del historial de los últimos seis meses.
+- Advertencia cuando sólo exista información anterior a seis meses.
+
+La ruta inversa no es equivalente:
+
+`Occidente → Noreste industrial`
+
+no equivale a:
+
+`Noreste industrial → Occidente`
+
+No mezcles sentidos aunque compartan las mismas regiones.
+
+## 6. Relaciones regionales aprobadas
+
+El nivel “región de destino relacionada” requiere un catálogo explícito y versionado de relaciones permitidas.
+
+Antes de implementarlo, busca si ya existe ese catálogo.
+
+Si existe:
+
+- Reutilízalo.
+- Valida su versión.
+- Conserva relaciones dirigidas.
+- Agrega pruebas por cada relación utilizada.
+
+Si no existe:
+
+- No inventes relaciones.
+- No deduzcas relaciones por cercanía entre centros.
+- No utilices OpenAI para decidirlas.
+- No asumas que regiones vecinas son comercialmente equivalentes.
+- Implementa los demás niveles.
+- Deja este nivel desactivado.
+- Documenta que necesita un catálogo aprobado por Pricing, Operaciones o Procurement.
+
+## 7. Preparación del histórico
+
+No modifiques el histórico original.
+
+Amplía el proceso de construcción de evidencia para generar una capa derivada con:
+
+- `origin_state`.
+- `destination_state`.
+- `origin_region`.
+- `destination_region`.
+- `regional_corridor`.
+- `regional_model_version`.
+- `regional_artifact_checksum`.
+- Coordenadas utilizadas para la asignación.
+- Estado de resolución regional.
+- Motivo de no resolución, cuando corresponda.
+
+La asignación debe realizarse fuera de la solicitud de cotización, durante la preparación del corpus o evidencia.
+
+No realices la asignación regional de las 10,000 o más filas históricas en cada solicitud.
+
+Las coordenadas deben provenir de la fuente geográfica interna aprobada o del caché geográfico existente.
+
+Los estados también deben proceder de datos estructurados o de una asignación geográfica versionada. No extraigas estados mediante suposiciones libres sobre nombres de ciudades.
+
+Cuando una fila no pueda resolverse de forma confiable:
+
+- Déjala fuera de comparaciones por estado o región.
+- Registra el motivo en la auditoría.
+- No inventes un estado o región.
+
+## 8. Prevención de fuga temporal
+
+Una cotización sólo puede utilizar un antecedente cuando:
+
+`cost_available_at < quote_timestamp`
+
+No utilices:
+
+- Viajes posteriores a la cotización.
+- Costos confirmados después del momento de decisión.
+- Agregados calculados con información futura.
+- Estadísticas de todo el corpus sin aplicar el corte temporal.
+- El costo real de la cotización que se está explicando.
+
+Los resúmenes regionales usados durante una explicación deben calcularse únicamente con filas observables en ese momento.
+
+Agrega pruebas específicas para evitar fuga temporal en todos los niveles regionales.
+
+## 9. Resúmenes regionales
+
+Calcula resúmenes por corredor regional dirigido utilizando únicamente antecedentes elegibles.
+
+Cada resumen debe contener:
+
+- Cantidad de viajes.
+- Cantidad de registros con costo válido.
+- Cantidad de registros con venta y margen válidos.
+- Costo all-in habitual.
+- Venta all-in habitual.
+- Margen habitual en importe y porcentaje.
+- Cantidad de viajes con margen negativo.
+- Cantidad de transportistas observados.
+- Último viaje disponible.
+- Inicio y fin del periodo observado.
+- Rango de distancia observado.
+- Moneda.
+- Equipo.
+- Nivel de comparación utilizado.
+- Nivel de costo regional, cuando exista suficiente evidencia.
+- Identificadores de evidencia que respalden el resumen.
+
+Utiliza las mismas definiciones robustas de “habitual” que ya emplea el recuperador actual. No introduzcas una fórmula distinta si el proyecto ya tiene una función común para resumir costos, ventas y márgenes.
+
+No mezcles monedas ni conviertas importes automáticamente.
+
+## 10. Definición de recorrido semejante
+
+Busca primero si el proyecto ya tiene una política aprobada para determinar cuándo dos recorridos tienen longitud semejante.
+
+Si existe:
+
+- Reutiliza la misma tolerancia.
+- No crees otra definición.
+- Documenta qué configuración se utiliza.
+
+Si no existe una política aplicable:
+
+- Crea el punto de configuración necesario.
+- No inventes silenciosamente un porcentaje.
+- Mantén desactivadas las comparaciones que dependan de esa clasificación.
+- Reporta el valor que debe aprobar el responsable de Pricing.
+
+No mezcles recorridos con diferencias materiales de longitud únicamente porque comparten estado o región.
+
+## 11. Nivel de costo regional
+
+El comportamiento regional podrá clasificarse comercialmente como:
+
+- `lower`: costo habitualmente menor.
+- `similar`: costo habitualmente parecido.
+- `higher`: costo habitualmente mayor.
+- `insufficient_evidence`: información insuficiente.
+- `not_evaluated`: clasificación no evaluada.
+
+La comparación debe realizarse contra antecedentes del mismo equipo, moneda y recorridos semejantes.
+
+Antes de implementar los límites de `lower`, `similar` y `higher`, busca una tolerancia aprobada en la configuración o documentación existente.
+
+Si no existe:
+
+- No inventes un porcentaje.
+- Implementa el contrato y el soporte para configurar los límites.
+- Utiliza `not_evaluated` hasta recibir aprobación.
+- Continúa mostrando costos y cantidades observadas.
+- No muestres una afirmación de costo menor, parecido o mayor.
+
+Ventas no debe ver fórmulas, identificadores de grupos, distancias a centros regionales ni términos como clustering.
+
+## 12. Evidencia insuficiente
+
+Busca primero si existe un mínimo aprobado de viajes para considerar confiable un resumen regional.
+
+Si existe, reutilízalo.
+
+Si no existe:
+
+- No inventes un mínimo.
+- Permite mostrar la cantidad observada.
+- Clasifica el respaldo como limitado.
+- Muestra “Poca información regional disponible”.
+- Evita afirmar que los costos regionales son menores, parecidos o mayores.
+- Documenta el parámetro pendiente de aprobación.
+
+## 13. Contrato de `regional_support`
+
+Amplía los esquemas existentes con un contrato equivalente a:
+
+{
+  "applicable": true,
+  "status": "available",
+  "requested_origin_state": "Jalisco",
+  "requested_destination_state": "Nuevo León",
+  "origin_region": "Occidente",
+  "destination_region": "Noreste industrial",
+  "regional_corridor": "Occidente → Noreste industrial",
+  "regional_model_version": "version",
+  "regional_artifact_checksum": "checksum",
+  "used_by_selected_cost": true,
+  "comparison_basis": "same_regional_corridor",
+  "regional_cost_level": "higher",
+  "history_window": "recent_6_months",
+  "older_history_fallback": false,
+  "comparable_count": 8,
+  "message": "En este corredor se han observado costos mayores que en recorridos parecidos.",
+  "routes": [
+    {
+      "evidence_id": "hist-regional-123",
+      "origin": "Tala, Jalisco",
+      "destination": "Escobedo, Nuevo León",
+      "origin_state": "Jalisco",
+      "destination_state": "Nuevo León",
+      "origin_region": "Occidente",
+      "destination_region": "Noreste industrial",
+      "equipment": "DryVan 53",
+      "currency": "MXN",
+      "shipment_count": 8,
+      "cost_usual": 29000,
+      "sale_usual": 32500,
+      "margin_usual_amount": 3500,
+      "margin_usual_percentage": 10.77,
+      "latest_available_at": "fecha",
+      "distance_range_km": {
+        "low": 700,
+        "high": 850
+      }
+    }
+  ]
+}
+
+Adapta los nombres a las convenciones del proyecto. No crees diccionarios sin validación si el proyecto utiliza esquemas tipados.
+
+Estados posibles:
+
+- `available`.
+- `limited_evidence`.
+- `not_applicable`.
+- `unavailable`.
+- `not_configured`.
+
+Bases de comparación posibles:
+
+- `same_state_pair`.
+- `same_regional_corridor`.
+- `approved_related_corridor`.
+- `comparable_distance_equipment`.
+- `none`.
+
+## 14. Evidencia enviada a OpenAI
+
+Agrega `regional_support` al paquete que ya se envía en la llamada actual del copiloto.
+
+No realices una segunda llamada a OpenAI.
+
+Envía como máximo tres resúmenes regionales, ordenados por:
+
+1. Misma pareja de estados.
+2. Mismo corredor regional.
+3. Corredor relacionado aprobado.
+4. Mayor vigencia.
+5. Mayor respaldo histórico.
+6. Mayor semejanza de recorrido.
+
+No envíes:
+
+- Filas históricas completas.
+- Clientes.
+- Nombres de transportistas.
+- Comentarios operativos.
+- Coordenadas exactas innecesarias.
+- Fórmulas.
+- Centros regionales.
+- Identificadores internos de grupos.
+- Información posterior a la cotización.
+
+Los nombres de transportistas y folios podrán mostrarse en la interfaz desde el backend interno, pero no deben incorporarse al contenido enviado a OpenAI si la política actual los desidentifica.
+
+Al aplicar límites de tokens, conserva esta prioridad:
+
+1. Resultado de pricing seleccionado.
+2. Historial exacto.
+3. Rutas cercanas.
+4. Comparación de mismos estados.
+5. Mismo corredor regional.
+6. Corredores relacionados.
+7. Contexto documental secundario.
+
+## 15. Instrucciones del copiloto
+
+Amplía el prompt actual del copiloto con reglas equivalentes a:
+
+“Cuando `regional_support` contenga evidencia, explica después del historial exacto y de las rutas cercanas cómo se comportaron las rutas que conectan estados o regiones semejantes.
+
+Utiliza exclusivamente los estados, regiones, corredores, rutas, importes, clasificaciones y mensajes entregados por `regional_support`.
+
+No deduzcas estados, regiones o relaciones.
+
+Da prioridad a:
+
+1. Mismos estados de origen y destino.
+2. Misma región de origen y destino.
+3. Corredores relacionados aprobados por el backend.
+
+Explica con lenguaje comercial si en ese corredor se han observado costos habitualmente menores, parecidos o mayores frente a viajes del mismo equipo y recorrido semejante, únicamente cuando `regional_cost_level` tenga una clasificación válida.
+
+No menciones cálculos, clustering, algoritmos, distribuciones, grupos, centros ni fórmulas.
+
+Si `used_by_selected_cost` es verdadero, puedes indicar que el comportamiento regional ayudó al cotizador porque había poca experiencia en la ruta exacta.
+
+Si `used_by_selected_cost` es falso, presenta la comparación solamente como contexto. No afirmes que causó el costo seleccionado.
+
+Compartir estado o región no significa que las rutas tengan el mismo costo. Aclara que pueden variar por recorrido carretera, disponibilidad, restricciones operativas y vigencia del histórico.
+
+No presentes el comportamiento regional como garantía del costo o margen actual.
+
+Si la evidencia es limitada, indica ‘Poca información regional disponible’ y recomienda validación comercial.”
+
+Mantén una sola llamada de generación y conserva los límites actuales de tokens.
+
+## 16. Validación backend de la respuesta
+
+No dependas únicamente del prompt.
+
+El backend debe validar que:
+
+- Los estados mencionados existen en `regional_support`.
+- Las regiones mencionadas existen en `regional_support`.
+- Los corredores mencionados fueron entregados.
+- Los importes citados provienen de evidencia válida.
+- Los `evidence_id` fueron enviados a OpenAI.
+- La dirección del corredor es correcta.
+- No se afirme influencia cuando `used_by_selected_cost=false`.
+- No se muestre clasificación cuando el nivel sea `not_evaluated` o `insufficient_evidence`.
+
+Si la respuesta generada incumple estas reglas:
+
+- Elimina la afirmación no respaldada.
+- Degrada el estado a evidencia limitada cuando corresponda.
+- Conserva las advertencias.
+- No realices otra llamada automática a OpenAI.
+
+## 17. Interfaz del copiloto
+
+Agrega una sección titulada:
+
+“Comparación regional”
+
+Colócala después de “Rutas cercanas” y antes de “Resultados por transportista”.
+
+Mostrar:
+
+- Estado de origen.
+- Estado de destino.
+- Región de origen.
+- Región de destino.
+- Corredor regional dirigido.
+- Indicación “Influyó en el costo” o “Sólo contexto”.
+- Comportamiento observado: menor, parecido o mayor, únicamente cuando exista una clasificación respaldada.
+- Cantidad de viajes regionales considerados.
+- Periodo observado.
+- Rutas utilizadas como referencia.
+- Costo all-in habitual.
+- Venta all-in habitual.
+- Margen habitual.
+- Transportistas y folios resueltos desde el backend interno.
+- Advertencia cuando haya poca evidencia.
+- Advertencia cuando se utilice historial anterior a seis meses.
+
+No mostrar:
+
+- Números de grupo.
+- Centros regionales.
+- Fórmulas.
+- Términos como clustering.
+- Relaciones regionales no aprobadas.
+- Clasificaciones sin respaldo.
+
+Cuando no aplique, mostrar una explicación breve:
+
+- “La comparación regional está disponible inicialmente sólo para National.”
+- “La comparación regional no aplica para LTL.”
+- “No fue posible asignar las regiones por falta de coordenadas completas.”
+- “No existe suficiente información regional comparable.”
+
+## 18. Persistencia de explicaciones
+
+El copiloto ya guarda o debe guardar las explicaciones para evitar regenerarlas.
+
+Incluye `regional_support` en el snapshot persistido de la explicación.
+
+Una explicación guardada debe conservar:
+
+- Versión del resultado de pricing.
+- Versión del prompt.
+- Versión y checksum regional.
+- Evidencia regional mostrada.
+- Clasificación disponible en el momento de generación.
+- Fecha y hora UTC.
+
+Consultar una explicación guardada no debe volver a recuperar evidencia, llamar a OpenAI ni consumir tokens.
+
+Si cambia el resultado de pricing o se solicita explícitamente una nueva versión, conserva la explicación anterior para auditoría.
+
+## 19. Archivos que debes inspeccionar
+
+Ubica y adapta los equivalentes actuales de:
+
+- Resolución regional.
+- Esquemas del copiloto.
+- Recuperación histórica.
+- Preparación del corpus histórico.
+- Servicio del copiloto.
+- Construcción del paquete de evidencia.
+- Prompt del copiloto.
+- Validación backend de citas y afirmaciones.
+- Persistencia de explicaciones.
+- Interfaz del detalle del copiloto.
+- Configuración.
+- Documentación.
+- Pruebas.
+
+No dupliques módulos existentes. Extiende las responsabilidades actuales.
+
+## 20. Pruebas obligatorias
+
+Agrega pruebas para:
+
+1. División National con equipo válido y coordenadas completas.
+2. División diferente de National.
+3. Equipo LTL.
+4. Coordenadas incompletas.
+5. Misma ruta exacta con prioridad sobre evidencia regional.
+6. Ruta cercana con prioridad sobre evidencia regional.
+7. Misma pareja de estados.
+8. Mismo corredor regional.
+9. Corredor relacionado aprobado.
+10. Ausencia de catálogo de relaciones.
+11. Ruta inversa.
+12. Ciudades cerca del límite entre regiones.
+13. Estados iguales asignados a regiones diferentes.
+14. Regiones iguales con estados diferentes.
+15. Equipos distintos.
+16. Monedas diferentes.
+17. Recorridos con diferencias materiales.
+18. Historial anterior a seis meses.
+19. Antecedentes posteriores a la cotización excluidos.
+20. Uso exclusivo de `all_in_rate_cost` y `all_in_rate_sale`.
+21. Exclusión de campos con “total”.
+22. Exclusión de accesoriales.
+23. Modelo seleccionado que utilizó región.
+24. Modelo seleccionado que no utilizó región.
+25. Evidencia regional insuficiente.
+26. Clasificación de costo no configurada.
+27. Máximo tres resúmenes enviados.
+28. Cero nombres de transportistas enviados a OpenAI.
+29. Cero llamadas adicionales a OpenAI.
+30. Validación de regiones y estados mencionados.
+31. Explicación guardada reutilizada sin consumir tokens.
+32. Falla regional sin afectar cotización ni copiloto principal.
+
+## 21. Criterios de aceptación
+
+La implementación sólo estará completa si cumple:
+
+- 100% de regiones obtenidas del artefacto versionado.
+- 100% de corredores con dirección correcta.
+- 100% de antecedentes anteriores al momento de la cotización.
+- 100% de importes provenientes de campos all-in sin “total”.
+- Cero estados inventados.
+- Cero regiones inventadas.
+- Cero relaciones regionales inventadas.
+- Cero afirmaciones de influencia cuando el modelo seleccionado no utilizó región.
+- Cero mezclas automáticas de monedas.
+- Cero llamadas adicionales a OpenAI.
+- Máximo tres resúmenes regionales enviados.
+- Respuesta limitada cuando no exista respaldo suficiente.
+- Ninguna regresión en historial exacto, rutas cercanas, pricing o permisos.
+- La ausencia del componente regional no bloquea el cotizador.
+
+## 22. Documentación
+
+Actualiza la documentación para explicar:
+
+- Alcance inicial exclusivo de National.
+- Exclusión de LTL.
+- Prioridad de recuperación.
+- Diferencia entre ruta cercana y comparación regional.
+- Diferencia entre influencia real y contexto.
+- Segmentación de 14 regiones.
+- Versionado regional.
+- Preparación offline del histórico.
+- Corte temporal.
+- Campos monetarios permitidos.
+- Relaciones regionales aprobadas.
+- Parámetros pendientes de aprobación.
+- Estados de evidencia.
+- Contrato de `regional_support`.
+- Qué información se envía a OpenAI.
+- Qué información permanece sólo en backend.
+- Pruebas y rollback.
+
+No presentes la segmentación regional como una frontera administrativa ni como un corredor carretero oficial.
+
+## 23. Entrega
+
+Al finalizar, reporta:
+
+- Archivos modificados.
+- Esquemas agregados o ampliados.
+- Artefactos derivados creados.
+- Configuraciones agregadas.
+- Cambios al recuperador.
+- Cambios al prompt.
+- Validaciones backend.
+- Cambios de interfaz.
+- Migraciones, si fueron necesarias.
+- Documentación actualizada.
+- Pruebas ejecutadas y resultados.
+- Conteos del corpus antes y después.
+- Filas sin estado o región y sus motivos.
+- Parámetros que todavía requieren aprobación.
+- Evidencia de que se mantiene una sola llamada a OpenAI.
+- Evidencia de que no existe fuga temporal.
+- Procedimiento de rollback.
+
+No declares terminada la tarea si las relaciones regionales, tolerancias o mínimos se inventaron sin una fuente aprobada.
+
+FIN DEL PROMPT

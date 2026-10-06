@@ -1,0 +1,62 @@
+modules = ["nodejs-20", "web", "python-3.11", "postgresql-16"]
+run = "npm run dev"
+hidden = [".config", ".git", "generated-icon.png", "node_modules", "dist"]
+
+[nix]
+channel = "stable-24_05"
+packages = ["cargo", "glibcLocales", "libiconv", "libxcrypt", "oneDNN", "postgresql", "re2", "rustc"]
+
+[deployment]
+deploymentTarget = "autoscale"
+build = ["npm", "run", "build"]
+run = ["npm", "run", "start"]
+
+[[ports]]
+localPort = 5000
+externalPort = 80
+
+[[ports]]
+localPort = 5051
+externalPort = 3000
+
+[[ports]]
+localPort = 8000
+externalPort = 8000
+
+[env]
+PORT = "5000"
+
+[workflows]
+runButton = "Project"
+
+[[workflows.workflow]]
+name = "Project"
+mode = "parallel"
+author = "agent"
+
+[[workflows.workflow.tasks]]
+task = "workflow.run"
+args = "Start application"
+
+[[workflows.workflow]]
+name = "Start application"
+author = "agent"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "npm run dev"
+waitForPort = 5000
+
+[agent]
+integrations = ["firebase_barebones_javascript:1.0.0", "javascript_database:1.0.0", "google-sheet:1.0.0", "resend:1.0.0", "slack:1.0.0"]
+
+[userenv]
+
+[userenv.shared]
+GOOGLE_SHEET_ID = "1ajf2VV31g97HV7bmTXusgZkbFZHNrJrsyOchEH0ofP0"
+APP_BASE_URL = "https://vax-pricing-hub.replit.app"
+COPILOT_ENABLED = "true"
+
+[postMerge]
+path = "scripts/post-merge.sh"
+timeoutMs = 300000

@@ -1,0 +1,39 @@
+{
+  "artifact": "lightgbm_ensemble_bundle.joblib",
+  "target": "cost_mxn",
+  "date_col": "FECHA CREACI\u00d3N_dt",
+  "required_raw_features": [
+    "CLIENTE_key",
+    "PROVEEDOR_key",
+    "ORIGEN_key",
+    "DESTINO_key",
+    "route_key",
+    "Tipo de Equipo_key",
+    "DIVISION_key",
+    "RANGO_key",
+    "route_type",
+    "mes_creacion",
+    "trimestre_creacion",
+    "dia_semana_creacion",
+    "google_distance_km"
+  ],
+  "categorical_missing_token": "__MISSING__",
+  "numeric_missing": "training_median",
+  "prediction": "mean(expm1(seed_model.predict(transformed_features))) clipped >= 0",
+  "target_encoding": [
+    "ORIGEN_key",
+    "DESTINO_key"
+  ],
+  "training_max_date": "2025-12-31",
+  "seeds": [
+    42,
+    2026,
+    9001
+  ],
+  "versions": {
+    "python": "3.12.10",
+    "pandas": "3.0.3",
+    "numpy": "2.5.1",
+    "lightgbm": "4.6.0"
+  }
+}

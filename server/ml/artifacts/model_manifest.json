@@ -1,0 +1,64 @@
+{
+  "model_version": "lightgbm-base-2026.01-onnx-beta",
+  "source_artifact": "lightgbm_ensemble_bundle.joblib",
+  "source_sha256": "000cf1c3c2972dfda9d21d76fa9c55284e251dd4dc896c91ba83ee41ba493444",
+  "trained_through": "2025-12-31",
+  "onnx_opset": 15,
+  "input_name": "features",
+  "input_dtype": "float32",
+  "input_shape": [
+    null,
+    16
+  ],
+  "output_semantics": "log1p(cost_mxn); apply expm1 and clip >= 0 per seed, then mean",
+  "ensemble_order": "transform each seed output with expm1 before averaging",
+  "features": [
+    "mes_creacion",
+    "trimestre_creacion",
+    "dia_semana_creacion",
+    "google_distance_km",
+    "CLIENTE_key__freq",
+    "PROVEEDOR_key__freq",
+    "ORIGEN_key__freq",
+    "DESTINO_key__freq",
+    "route_key__freq",
+    "Tipo de Equipo_key__freq",
+    "DIVISION_key__freq",
+    "RANGO_key__freq",
+    "route_type__freq",
+    "distance_log1p",
+    "ORIGEN_key__te",
+    "DESTINO_key__te"
+  ],
+  "preprocessing_file": "preprocessing_state.json",
+  "preprocessing_sha256": "80223b0fda7b7e71b53eb845c8c601d500ed6d0d695900a1fc9aad6270988705",
+  "models": [
+    {
+      "seed": 42,
+      "file": "lightgbm_seed_42.onnx",
+      "sha256": "e664a2d5a1542cff336690563dc58a2ae8ce9f3c3c4b30db89b35dae07994fdb"
+    },
+    {
+      "seed": 2026,
+      "file": "lightgbm_seed_2026.onnx",
+      "sha256": "d89027576e4e022d80dde5804b5557d86c94d5aed79364286a456bad901e0fd0"
+    },
+    {
+      "seed": 9001,
+      "file": "lightgbm_seed_9001.onnx",
+      "sha256": "7f71927e1c53accd72c1afc870830896822728566532dfe8ce3ec9d1671b4187"
+    }
+  ],
+  "uncertainty": {
+    "residual_q90_mxn": 10880.764340235386,
+    "residual_q95_mxn": 17047.5312260255,
+    "mean_seed_sd_mxn": 789.5326202183761,
+    "coverage_nominal90_2026_%": 84.17786970010341,
+    "coverage_operational_q95_2026_%": 94.85522233712511,
+    "mean_operational_interval_width_mxn": 36692.62477256946
+  },
+  "python": "3.12.10",
+  "converter": {
+    "onnxmltools": "1.16.0"
+  }
+}

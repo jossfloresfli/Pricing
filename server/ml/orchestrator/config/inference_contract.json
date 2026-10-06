@@ -1,0 +1,82 @@
+{
+  "contract_version": "1.0.0-shadow",
+  "artifact_type": "protected_cost_orchestrator",
+  "status": "shadow_challenger_not_promoted",
+  "inputs": {
+    "required_model_features": [
+      "CLIENTE_key",
+      "PROVEEDOR_key",
+      "ORIGEN_key",
+      "DESTINO_key",
+      "route_key",
+      "Tipo de Equipo_key",
+      "DIVISION_key",
+      "RANGO_key",
+      "route_type",
+      "mes_creacion",
+      "trimestre_creacion",
+      "dia_semana_creacion",
+      "google_distance_km"
+    ],
+    "operational": {
+      "quote_id": "optional; preserved when supplied",
+      "quote_row_id": "required for automatic eligibility; must be non-missing and unique within the batch",
+      "currency": "required for automatic eligibility; must be explicitly MXN",
+      "realized_cost_mxn": "optional evaluation label; stripped before every predictor and never returned"
+    },
+    "optional_geo_features": [
+      "origin_lat",
+      "origin_lng",
+      "destination_lat",
+      "destination_lng",
+      "origin_elevation_m",
+      "destination_elevation_m"
+    ]
+  },
+  "outputs": [
+    "quote_id",
+    "row_id",
+    "currency",
+    "equipment",
+    "champion_prediction_mxn",
+    "central_prediction_mxn",
+    "protected_cost_mxn",
+    "raw_q67_mxn",
+    "geo_prediction_mxn",
+    "route_history_count",
+    "history_level",
+    "cost_band",
+    "prediction_decile",
+    "equipment_guardrail",
+    "auto_quote",
+    "review_required",
+    "decision_status",
+    "guardrail_reasons",
+    "interval_low_mxn",
+    "interval_high_mxn",
+    "model_path"
+  ],
+  "invariants": [
+    "protected_cost_mxn >= central_prediction_mxn for every finite prediction",
+    "review_required == !auto_quote",
+    "decision_status is review_required or shadow_auto_eligible",
+    "guardrail_reasons is a JSON array string",
+    "unknown or non-MXN currency cannot be auto eligible",
+    "missing or duplicate quote_row_id cannot be auto eligible; row_id index fallback is shadow-only",
+    "component failure must abstain and must not raise a quote decision",
+    "realized_cost_mxn is never an inference feature",
+    "an unfitted calibrator contributes zero adjustment and cannot be auto eligible"
+  ],
+  "calibration": {
+    "operational_band_source_train": "point_in_time_central_prediction_mxn",
+    "operational_band_source_inference": "central_prediction_mxn",
+    "realized_cost_band": "evaluation only",
+    "required_training_predictions": "out-of-fold, point-in-time and strictly before untouched holdout"
+  },
+  "special_equipment_guardrails": [
+    "pipa",
+    "hazmat",
+    "full_container_40"
+  ],
+  "side_effects": "none; inference-only shadow output"
+}

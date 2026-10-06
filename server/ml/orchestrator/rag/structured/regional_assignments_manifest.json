@@ -1,0 +1,39 @@
+{
+  "schema_version": "copilot-regional-assignments-v1",
+  "built_at": "2026-08-04T17:39:03.514607+00:00",
+  "model_version": "national-geo-2026-frozen",
+  "artifact_checksum": "d688c4fe80e70eda6a89395386e9eb2c17683c89f9052cfd79b80a537ae51923",
+  "region_count": 14,
+  "source_fingerprint": {
+    "historical_loads_sha256": "b2214ddc32b5c10ba5940c0f578befb68633678d9eea220e75820204e4e40e50",
+    "route_cache_sha256": "60441c7e3778d0df094ff2aad697a2dfa2867c77ea5df93875ba9ca13bcdf732"
+  },
+  "source_rows": 10435,
+  "resolved_rows": 4716,
+  "excluded_rows": {
+    "division_not_national": 5704,
+    "missing_coordinates": 15
+  },
+  "region_labels": {
+    "0": "Región Puebla y Veracruz De Ignacio De La Llave",
+    "1": "Región Baja California y California",
+    "2": "Región Queretaro y Guanajuato",
+    "3": "Región Nuevo Leon y Tamaulipas",
+    "4": "Región Quintana Roo y Yucatan",
+    "5": "Región Sinaloa y Sonora",
+    "6": "Región Chiapas y Tabasco",
+    "7": "Región Jalisco y Colima",
+    "8": "Región Georgia y Virginia",
+    "9": "Región Sonora",
+    "10": "Región Estado De Mexico y Hidalgo",
+    "11": "Región Chihuahua",
+    "12": "Región Coahuila De Zaragoza y Durango",
+    "13": "Región Tamaulipas y San Luis Potosi"
+  },
+  "region_labels_status": "commercial_approved",
+  "related_corridor_catalog": {
+    "status": "disabled_no_approved_catalog",
+    "note": "No existe catálogo aprobado de corredores relacionados; el nivel permanece deshabilitado hasta aprobación de Pricing/Operaciones/Procurement."
+  },
+  "region_labels_approved_at": "2026-08-04"
+}

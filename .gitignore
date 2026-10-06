@@ -1,0 +1,54 @@
+# Environment & Secrets (CRITICAL)
+.env
+.env.*
+.env.local
+*.env
+*.env.local
+*env_*
+attached_assets/env*
+attached_assets/*env*
+
+# Node & JS dependencies / build
+node_modules/
+dist/
+build/
+.npm
+server/public
+vite.config.ts.*
+
+# Python & Virtual Environments
+.venv/
+venv/
+ENV/
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.pytest_cache/
+.ruff_cache/
+
+# Database dumps and backups (sensitive production data)
+*.sql
+*.sql~
+*.sqlite
+*.sqlite3
+*.db
+!migrations/*.sql
+
+# OS & Editor files
+.DS_Store
+Thumbs.db
+*:Zone.Identifier
+*Zone.Identifier*
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Cache & Local runtime
+.cache/
+.config/
+.local/
+*.tar.gz
+server/ml/orchestrator/rag/runtime/

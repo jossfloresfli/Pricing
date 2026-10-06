@@ -1,0 +1,462 @@
+INSERT INTO clientes (nombre) VALUES ('International Furniture
+');
+INSERT INTO clientes (nombre) VALUES ('Zagis
+');
+INSERT INTO clientes (nombre) VALUES ('Adidas
+');
+INSERT INTO clientes (nombre) VALUES ('Direct Pack Baja
+');
+INSERT INTO clientes (nombre) VALUES ('Tajin
+');
+INSERT INTO clientes (nombre) VALUES ('Tempel de México
+');
+INSERT INTO clientes (nombre) VALUES ('Home Depot
+');
+INSERT INTO clientes (nombre) VALUES ('AMI Trading
+');
+INSERT INTO clientes (nombre) VALUES ('Goodpack
+');
+INSERT INTO clientes (nombre) VALUES ('Copamex
+');
+INSERT INTO clientes (nombre) VALUES ('Klass Time USA
+');
+INSERT INTO clientes (nombre) VALUES ('Veloci Motors
+');
+INSERT INTO clientes (nombre) VALUES ('Industria del Álcali
+');
+INSERT INTO clientes (nombre) VALUES ('Almex
+');
+INSERT INTO clientes (nombre) VALUES ('ProTrans
+');
+INSERT INTO clientes (nombre) VALUES ('Horizon Home
+');
+INSERT INTO clientes (nombre) VALUES ('Vitro Envases
+');
+INSERT INTO clientes (nombre) VALUES ('Arkema
+');
+INSERT INTO clientes (nombre) VALUES ('Comercializadora y Aleaciones del Noroeste
+');
+INSERT INTO clientes (nombre) VALUES ('Graphic Packaging
+');
+INSERT INTO clientes (nombre) VALUES ('Innovarr
+');
+INSERT INTO clientes (nombre) VALUES ('Atmosphera Verde
+');
+INSERT INTO clientes (nombre) VALUES ('Clase Azul
+');
+INSERT INTO clientes (nombre) VALUES ('Grupo Cimarron
+');
+INSERT INTO clientes (nombre) VALUES ('Traxión
+');
+INSERT INTO clientes (nombre) VALUES ('Plami
+');
+INSERT INTO clientes (nombre) VALUES ('Jumbocel
+');
+INSERT INTO clientes (nombre) VALUES ('Nestle México
+');
+INSERT INTO clientes (nombre) VALUES ('Mauser Packaging International
+');
+INSERT INTO clientes (nombre) VALUES ('Iron Mountain Mexico
+');
+INSERT INTO clientes (nombre) VALUES ('Toyo Kasei
+');
+INSERT INTO clientes (nombre) VALUES ('ProTrans International
+');
+INSERT INTO clientes (nombre) VALUES ('Milwaukee Tools
+');
+INSERT INTO clientes (nombre) VALUES ('GV Carriers
+');
+INSERT INTO clientes (nombre) VALUES ('GST Automotive
+');
+INSERT INTO clientes (nombre) VALUES ('Cristales Inastillables
+');
+INSERT INTO clientes (nombre) VALUES ('Olexo Foods México
+');
+INSERT INTO clientes (nombre) VALUES ('SJ Pack
+');
+INSERT INTO clientes (nombre) VALUES ('Ready Solutions
+');
+INSERT INTO clientes (nombre) VALUES ('DIMSA
+');
+INSERT INTO clientes (nombre) VALUES ('Quala
+');
+INSERT INTO clientes (nombre) VALUES ('SEPHNOS
+');
+INSERT INTO clientes (nombre) VALUES ('Tricorbraun
+');
+INSERT INTO clientes (nombre) VALUES ('Birdman
+');
+INSERT INTO clientes (nombre) VALUES ('La Moderna
+');
+INSERT INTO clientes (nombre) VALUES ('Naturasol
+');
+INSERT INTO clientes (nombre) VALUES ('Wave Optics
+');
+INSERT INTO clientes (nombre) VALUES ('QUIMIPOL
+');
+INSERT INTO clientes (nombre) VALUES ('ULD
+');
+INSERT INTO clientes (nombre) VALUES ('Pridgeon & Clay
+');
+INSERT INTO clientes (nombre) VALUES ('Maquiladora Gráfica
+');
+INSERT INTO clientes (nombre) VALUES ('Menshen
+');
+INSERT INTO clientes (nombre) VALUES ('DL Medica
+');
+INSERT INTO clientes (nombre) VALUES ('FI Manufacturing
+');
+INSERT INTO clientes (nombre) VALUES ('Colchones América
+');
+INSERT INTO clientes (nombre) VALUES ('Niagara
+');
+INSERT INTO clientes (nombre) VALUES ('AKG Termotecnologia
+');
+INSERT INTO clientes (nombre) VALUES ('Industrias Metálicas del Envase
+');
+INSERT INTO clientes (nombre) VALUES ('Symrise USA
+');
+INSERT INTO clientes (nombre) VALUES ('Symrise
+');
+INSERT INTO clientes (nombre) VALUES ('Tyson Foods
+');
+INSERT INTO clientes (nombre) VALUES ('Envases de Sinaloa
+');
+INSERT INTO clientes (nombre) VALUES ('West Rock
+');
+INSERT INTO clientes (nombre) VALUES ('Grupo Arco Iris Plasticos
+');
+INSERT INTO clientes (nombre) VALUES ('PROANSA
+');
+INSERT INTO clientes (nombre) VALUES ('Comercializadora Atradium
+');
+INSERT INTO clientes (nombre) VALUES ('Bruni
+');
+INSERT INTO clientes (nombre) VALUES ('Recubrimientos Plasticos
+');
+INSERT INTO clientes (nombre) VALUES ('Global Ends
+');
+INSERT INTO clientes (nombre) VALUES ('Tremain
+');
+INSERT INTO clientes (nombre) VALUES ('Guy Wire Co.
+');
+INSERT INTO clientes (nombre) VALUES ('Sistela
+');
+INSERT INTO clientes (nombre) VALUES ('Bolero
+');
+INSERT INTO clientes (nombre) VALUES ('Team Diversified
+');
+INSERT INTO clientes (nombre) VALUES ('Fuego Envasado
+');
+INSERT INTO clientes (nombre) VALUES ('Flash Container
+');
+INSERT INTO clientes (nombre) VALUES ('Wham Picture
+');
+INSERT INTO clientes (nombre) VALUES ('Miraclon
+');
+INSERT INTO clientes (nombre) VALUES ('Reusable Transport Packaging
+');
+INSERT INTO clientes (nombre) VALUES ('Wood Mizer
+');
+INSERT INTO clientes (nombre) VALUES ('Lubricantes Fuchs
+');
+INSERT INTO clientes (nombre) VALUES ('Fives Cinetic Group
+');
+INSERT INTO clientes (nombre) VALUES ('Taxan
+');
+INSERT INTO clientes (nombre) VALUES ('Empaques Modernos de Guadalajara
+');
+INSERT INTO clientes (nombre) VALUES ('Grupo Perfimexa
+');
+INSERT INTO clientes (nombre) VALUES ('ICAPSA
+');
+INSERT INTO clientes (nombre) VALUES ('5S Erosion Solutions
+');
+INSERT INTO clientes (nombre) VALUES ('Bostik Mexicana
+');
+INSERT INTO clientes (nombre) VALUES ('Senoplast
+');
+INSERT INTO clientes (nombre) VALUES ('Samsung SDS
+');
+INSERT INTO clientes (nombre) VALUES ('Orox-co
+');
+INSERT INTO clientes (nombre) VALUES ('Direct Pack de México
+');
+INSERT INTO clientes (nombre) VALUES ('DM International
+');
+INSERT INTO clientes (nombre) VALUES ('Hogan Stakes
+');
+INSERT INTO clientes (nombre) VALUES ('Glinsa
+');
+INSERT INTO clientes (nombre) VALUES ('BUNGE
+');
+INSERT INTO clientes (nombre) VALUES ('Armasel
+');
+INSERT INTO clientes (nombre) VALUES ('KlassCo
+');
+INSERT INTO clientes (nombre) VALUES ('Bio Pappel
+');
+INSERT INTO clientes (nombre) VALUES ('Goodpack México
+');
+INSERT INTO clientes (nombre) VALUES ('Dream Pack Group
+');
+INSERT INTO clientes (nombre) VALUES ('Amcor Rigid Packaging de México
+');
+INSERT INTO clientes (nombre) VALUES ('Paroli 
+');
+INSERT INTO clientes (nombre) VALUES ('Cervs Recycling
+');
+INSERT INTO clientes (nombre) VALUES ('Sport Solutions
+');
+INSERT INTO clientes (nombre) VALUES ('UWipes
+');
+INSERT INTO clientes (nombre) VALUES ('Dürr Universal
+');
+INSERT INTO clientes (nombre) VALUES ('Grupo CG Maderas
+');
+INSERT INTO clientes (nombre) VALUES ('International Paper
+');
+INSERT INTO clientes (nombre) VALUES ('Canmex Dollar Stores
+');
+INSERT INTO clientes (nombre) VALUES ('Coppel
+');
+INSERT INTO clientes (nombre) VALUES ('Marcas Nestle
+');
+INSERT INTO clientes (nombre) VALUES ('CPW México
+');
+INSERT INTO clientes (nombre) VALUES ('Lidercel
+');
+INSERT INTO clientes (nombre) VALUES ('Gemtron de México
+');
+INSERT INTO clientes (nombre) VALUES ('DIPISUR
+');
+INSERT INTO clientes (nombre) VALUES ('OWENS AMERICA
+');
+INSERT INTO clientes (nombre) VALUES ('TOYO FOODS BOEKI
+');
+INSERT INTO clientes (nombre) VALUES ('KUMCO
+');
+INSERT INTO clientes (nombre) VALUES ('Echo Global Logistics
+');
+INSERT INTO clientes (nombre) VALUES ('GLM Group
+');
+INSERT INTO clientes (nombre) VALUES ('ESJ
+');
+INSERT INTO clientes (nombre) VALUES ('DLX Logistix
+');
+INSERT INTO clientes (nombre) VALUES ('Lumaol USA
+');
+INSERT INTO clientes (nombre) VALUES ('Multimatic
+');
+INSERT INTO clientes (nombre) VALUES ('Stephen Gould de México
+');
+INSERT INTO clientes (nombre) VALUES ('Viscofan USA
+');
+INSERT INTO clientes (nombre) VALUES ('Plastic Trends
+');
+INSERT INTO clientes (nombre) VALUES ('Distribuidora del Secreto
+');
+INSERT INTO clientes (nombre) VALUES ('Grupo Julio´s 
+');
+INSERT INTO clientes (nombre) VALUES ('Avery Dennison
+');
+INSERT INTO clientes (nombre) VALUES ('PSC S & S Industries de Mexico
+');
+INSERT INTO clientes (nombre) VALUES ('Topura Fastener De México
+');
+INSERT INTO clientes (nombre) VALUES ('FIFCO
+');
+INSERT INTO clientes (nombre) VALUES ('HEXPOL Compounding
+');
+INSERT INTO clientes (nombre) VALUES ('RTC
+');
+INSERT INTO clientes (nombre) VALUES ('Palos Garza
+');
+INSERT INTO clientes (nombre) VALUES ('Maflow
+');
+INSERT INTO clientes (nombre) VALUES ('PAS APPLIANCE SYSTEMS
+');
+INSERT INTO clientes (nombre) VALUES ('Eco agri tec
+');
+INSERT INTO clientes (nombre) VALUES ('Best Ingredients México
+');
+INSERT INTO clientes (nombre) VALUES ('Grupo Estudiat
+');
+INSERT INTO clientes (nombre) VALUES ('OUT MOVEMENT AND LOGISTICS SA DE CV
+');
+INSERT INTO clientes (nombre) VALUES ('International Metals de Mexico
+');
+INSERT INTO clientes (nombre) VALUES ('Lubricantes Fuchs
+');
+INSERT INTO clientes (nombre) VALUES ('Sante
+');
+INSERT INTO clientes (nombre) VALUES ('Eco Lean
+');
+INSERT INTO clientes (nombre) VALUES ('Bacardi
+');
+INSERT INTO clientes (nombre) VALUES ('Nufer plus
+');
+INSERT INTO clientes (nombre) VALUES ('Mexifrutas
+');
+INSERT INTO clientes (nombre) VALUES ('Bostik XB
+');
+INSERT INTO clientes (nombre) VALUES ('Comegsa
+');
+INSERT INTO clientes (nombre) VALUES ('Sky Jack México
+');
+INSERT INTO clientes (nombre) VALUES ('Alimentos Susalia
+');
+INSERT INTO clientes (nombre) VALUES ('Distribuidora PJ
+');
+INSERT INTO clientes (nombre) VALUES ('Bioflex
+');
+INSERT INTO clientes (nombre) VALUES ('Estapack
+');
+INSERT INTO clientes (nombre) VALUES ('Crawford packaging
+');
+INSERT INTO clientes (nombre) VALUES ('Operadoras en Servicios Comerciales (Italika)
+');
+INSERT INTO clientes (nombre) VALUES ('Comercializadora de Motocicletas de Calidad (Italika)
+');
+INSERT INTO clientes (nombre) VALUES ('Laziali
+');
+INSERT INTO clientes (nombre) VALUES ('Desoflex
+');
+INSERT INTO clientes (nombre) VALUES ('Suzuyo
+');
+INSERT INTO clientes (nombre) VALUES ('Lucas Bols
+');
+INSERT INTO clientes (nombre) VALUES ('Schreiber Foods
+');
+INSERT INTO clientes (nombre) VALUES ('Sk Express
+');
+INSERT INTO clientes (nombre) VALUES ('Valvoline
+');
+INSERT INTO clientes (nombre) VALUES ('Veladora Mexico
+');
+INSERT INTO clientes (nombre) VALUES ('Phoenix Packaging
+');
+INSERT INTO clientes (nombre) VALUES ('Kiye
+');
+INSERT INTO clientes (nombre) VALUES ('Pasion Por Madera
+');
+INSERT INTO clientes (nombre) VALUES ('Sodimac
+');
+INSERT INTO clientes (nombre) VALUES ('GLM Group
+');
+INSERT INTO clientes (nombre) VALUES ('BRIMEX Energy 
+');
+INSERT INTO clientes (nombre) VALUES ('Italli
+');
+INSERT INTO clientes (nombre) VALUES ('Bekax
+');
+INSERT INTO clientes (nombre) VALUES ('Tupperware
+');
+INSERT INTO clientes (nombre) VALUES ('JMA Llaves Altuna
+');
+INSERT INTO clientes (nombre) VALUES ('American Anchor
+');
+INSERT INTO clientes (nombre) VALUES ('B fashionistas
+');
+INSERT INTO clientes (nombre) VALUES ('Propasa
+');
+INSERT INTO clientes (nombre) VALUES ('Precision Resources
+');
+INSERT INTO clientes (nombre) VALUES ('IMPORTADORA MINISO
+');
+INSERT INTO clientes (nombre) VALUES ('ADJ Industries USA
+');
+INSERT INTO clientes (nombre) VALUES ('Recologic
+');
+INSERT INTO clientes (nombre) VALUES ('SPRING AIR
+');
+INSERT INTO clientes (nombre) VALUES ('SOLAREVER
+');
+INSERT INTO clientes (nombre) VALUES ('Mubit
+');
+INSERT INTO clientes (nombre) VALUES ('Fibras Opticas de México
+');
+INSERT INTO clientes (nombre) VALUES ('SINAX
+');
+INSERT INTO clientes (nombre) VALUES ('Zagis USA
+');
+INSERT INTO clientes (nombre) VALUES ('Solarever
+');
+INSERT INTO clientes (nombre) VALUES ('Templa Cristal y aceros 
+');
+INSERT INTO clientes (nombre) VALUES ('AGC
+');
+INSERT INTO clientes (nombre) VALUES ('FOMS Colombia
+');
+INSERT INTO clientes (nombre) VALUES ('Indelpro 
+');
+INSERT INTO clientes (nombre) VALUES ('Tododren
+');
+INSERT INTO clientes (nombre) VALUES ('Valle Redondo
+');
+INSERT INTO clientes (nombre) VALUES ('Irrigaciones y Servicios Industriales
+');
+INSERT INTO clientes (nombre) VALUES ('Tapon Corona
+');
+INSERT INTO clientes (nombre) VALUES ('M. Holland Latinoamerica 
+');
+INSERT INTO clientes (nombre) VALUES ('Eco Trade 
+');
+INSERT INTO clientes (nombre) VALUES ('Resinas de Alto Rendimiento
+');
+INSERT INTO clientes (nombre) VALUES ('SEJUM 
+');
+INSERT INTO clientes (nombre) VALUES ('POCHTECA MATERIAS PRIMAS
+');
+INSERT INTO clientes (nombre) VALUES ('Smart Bamboo
+');
+INSERT INTO clientes (nombre) VALUES ('Operadora Marta
+');
+INSERT INTO clientes (nombre) VALUES ('Gesol
+');
+INSERT INTO clientes (nombre) VALUES ('Truffino
+');
+INSERT INTO clientes (nombre) VALUES ('Bridgeco
+');
+INSERT INTO clientes (nombre) VALUES ('Stylos Tech Mexico
+');
+INSERT INTO clientes (nombre) VALUES ('Lpet
+');
+INSERT INTO clientes (nombre) VALUES ('ASMAK TEC
+');
+INSERT INTO clientes (nombre) VALUES ('Corey Solar
+');
+INSERT INTO clientes (nombre) VALUES ('La Universal Impresora
+');
+INSERT INTO clientes (nombre) VALUES ('Gustinos
+');
+INSERT INTO clientes (nombre) VALUES ('IVEX MANUFACTURING
+');
+INSERT INTO clientes (nombre) VALUES ('Bicicletas Mercurio 
+');
+INSERT INTO clientes (nombre) VALUES ('Corey Energy
+');
+INSERT INTO clientes (nombre) VALUES ('BASF MEXICANA
+');
+INSERT INTO clientes (nombre) VALUES ('Plantamex
+');
+INSERT INTO clientes (nombre) VALUES ('Active Leasing 
+');
+INSERT INTO clientes (nombre) VALUES ('Direct Pack International 
+');
+INSERT INTO clientes (nombre) VALUES ('Oleoespecias
+');
+INSERT INTO clientes (nombre) VALUES ('Industria Nacional de Detergentes
+');
+INSERT INTO clientes (nombre) VALUES ('ACH FOODS
+');
+INSERT INTO clientes (nombre) VALUES ('PISA
+');
+INSERT INTO clientes (nombre) VALUES ('EDP
+');
+INSERT INTO clientes (nombre) VALUES ('Grupo Comercial TRZ Internacional 
+');
+INSERT INTO clientes (nombre) VALUES ('Digrans 
+');
+INSERT INTO clientes (nombre) VALUES ('GRUPO INDUSTRIAL ARTES GRAFICAS
+');

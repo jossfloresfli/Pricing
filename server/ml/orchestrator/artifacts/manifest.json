@@ -1,0 +1,228 @@
+{
+  "format": "protected-cost-onnx-v1",
+  "opset": 15,
+  "bundles": {
+    "champion": {
+      "state": "states/champion.json",
+      "state_sha256": "6e9fb29d4888113edae01f400a39a48a1c5cb7108ee4d3e727fae53941909ca5",
+      "source_sha256": "000cf1c3c2972dfda9d21d76fa9c55284e251dd4dc896c91ba83ee41ba493444",
+      "model_count": 3
+    },
+    "quantile_risk": {
+      "state": "states/quantile_risk.json",
+      "state_sha256": "305c842912be1c052f0e15a1cc38b1d422550ae7398363950c0662f3f72377e8",
+      "source_sha256": "186498443d72962706f9054acc2af36c94c4e6af44651a4575607e7ee67555bc",
+      "model_count": 16
+    },
+    "national_geo": {
+      "state": "states/national_geo.json",
+      "state_sha256": "d688c4fe80e70eda6a89395386e9eb2c17683c89f9052cfd79b80a537ae51923",
+      "source_sha256": "dc646a11769ce05df759c3012733355dad1e225073909a7a9fc5a3f5d46ba5b7",
+      "model_count": 3
+    },
+    "national_hybrid": {
+      "state": "states/national_hybrid.json",
+      "state_sha256": "3f009eda876b2b669fcba8e19561e2dc3ba6f7f4f8d98984d774073574aff54d",
+      "source_sha256": "149d9187e9d30e5ce8ddbf1a40819bfbaf6cf4b42ad82e08fcec99ec6e101311",
+      "model_count": 6
+    }
+  },
+  "models": [
+    {
+      "__type__": "onnx_regressor",
+      "file": "models/champion__root.models.0.model.onnx",
+      "input": "features",
+      "n_features": 16,
+      "sha256": "4dc002d7e6bcf8819ab859ac737ff607fd35c84a24790f69a76d7eb7ea581cab"
+    },
+    {
+      "__type__": "onnx_regressor",
+      "file": "models/champion__root.models.1.model.onnx",
+      "input": "features",
+      "n_features": 16,
+      "sha256": "f0bfdd9fb6adbfd4f651b7a0150006fd2bb3c907292b1b37c30660667a19b29b"
+    },
+    {
+      "__type__": "onnx_regressor",
+      "file": "models/champion__root.models.2.model.onnx",
+      "input": "features",
+      "n_features": 16,
+      "sha256": "0ad0d9d9f5b8fa6a824de6943deeb24cf5a5e6e1c427a1f66a96f3063dd3e2b3"
+    },
+    {
+      "__type__": "onnx_regressor",
+      "file": "models/quantile_risk__root.models.enhanced_global_baseline.0.model.onnx",
+      "input": "features",
+      "n_features": 22,
+      "sha256": "f9b9fe22e7abbf138bf46f29fede85e3fb7192690c22254ff24015163953a163"
+    },
+    {
+      "__type__": "onnx_regressor",
+      "file": "models/quantile_risk__root.models.enhanced_global_baseline.1.model.onnx",
+      "input": "features",
+      "n_features": 22,
+      "sha256": "05cec206b56a412fd7642c6d80469b62310ccce8141272f9e41c2929c71033be"
+    },
+    {
+      "__type__": "onnx_regressor",
+      "file": "models/quantile_risk__root.models.enhanced_global_baseline.2.model.onnx",
+      "input": "features",
+      "n_features": 22,
+      "sha256": "2ea76d78e657d5349fd0107a40bedb75a66cfecbc18b2b592cedc6d6cad63637"
+    },
+    {
+      "__type__": "onnx_regressor",
+      "file": "models/quantile_risk__root.models.history_central.0.model.onnx",
+      "input": "features",
+      "n_features": 32,
+      "sha256": "6e565d2f90f0cfe4c21b405e81974661e00b6ce3f62151b6eb597fcb6b97c544"
+    },
+    {
+      "__type__": "onnx_regressor",
+      "file": "models/quantile_risk__root.models.history_central.1.model.onnx",
+      "input": "features",
+      "n_features": 32,
+      "sha256": "39a029978aa4b1b4b22db904eadc8856e07d5caca04cfdf1fc53cf78c74ac447"
+    },
+    {
+      "__type__": "onnx_regressor",
+      "file": "models/quantile_risk__root.models.history_central.2.model.onnx",
+      "input": "features",
+      "n_features": 32,
+      "sha256": "7c2107d4c8b6806a2c422b1030454800502c948da0a2f9d8d5ec541e8c693afa"
+    },
+    {
+      "__type__": "onnx_regressor",
+      "file": "models/quantile_risk__root.models.enhanced_quantile_060.0.model.onnx",
+      "input": "features",
+      "n_features": 22,
+      "sha256": "aec0ecdc54eb238cf10d19f121b86be7cf88580871b0852972dbccede2612af4"
+    },
+    {
+      "__type__": "onnx_regressor",
+      "file": "models/quantile_risk__root.models.enhanced_quantile_060.1.model.onnx",
+      "input": "features",
+      "n_features": 22,
+      "sha256": "ddb3c1495cecd84b5a80d98c626cfe2cf89b75401bde68cbf968bdee40855413"
+    },
+    {
+      "__type__": "onnx_regressor",
+      "file": "models/quantile_risk__root.models.enhanced_quantile_060.2.model.onnx",
+      "input": "features",
+      "n_features": 22,
+      "sha256": "18dd406fb9c1d9df6709dc8e8ca3931828bbbb75d8c389b2f1865791af7a2847"
+    },
+    {
+      "__type__": "onnx_regressor",
+      "file": "models/quantile_risk__root.models.enhanced_quantile_067.0.model.onnx",
+      "input": "features",
+      "n_features": 22,
+      "sha256": "824797c94da2d7afea40f2ad41f2a4d077b7b09a1260a1cfb0a5991e29de10c2"
+    },
+    {
+      "__type__": "onnx_regressor",
+      "file": "models/quantile_risk__root.models.enhanced_quantile_067.1.model.onnx",
+      "input": "features",
+      "n_features": 22,
+      "sha256": "5131b7283599478082c888fa3a1ea8c5e54f51fdea349bc5aa9709179f328cf9"
+    },
+    {
+      "__type__": "onnx_regressor",
+      "file": "models/quantile_risk__root.models.enhanced_quantile_067.2.model.onnx",
+      "input": "features",
+      "n_features": 22,
+      "sha256": "b44b6ca5ab708b51524d5de99d4837a0aab47e1cdc1bea1d0511fb1ff2c9c72d"
+    },
+    {
+      "__type__": "onnx_regressor",
+      "file": "models/quantile_risk__root.models.enhanced_quantile_075.0.model.onnx",
+      "input": "features",
+      "n_features": 22,
+      "sha256": "bfaeef83914c85e601f22a422a33aba582d447ab5764e2091d87960394e789c9"
+    },
+    {
+      "__type__": "onnx_regressor",
+      "file": "models/quantile_risk__root.models.enhanced_quantile_075.1.model.onnx",
+      "input": "features",
+      "n_features": 22,
+      "sha256": "ea9115563198b1bbebe2eb3e48a46ab6b67474f8b431b1912b41cd6a4223464d"
+    },
+    {
+      "__type__": "onnx_regressor",
+      "file": "models/quantile_risk__root.models.enhanced_quantile_075.2.model.onnx",
+      "input": "features",
+      "n_features": 22,
+      "sha256": "306094cadc3df325ecf85d3c99eb82c4ca59460c8e12728f192c64114dbe67e1"
+    },
+    {
+      "__type__": "onnx_regressor",
+      "file": "models/quantile_risk__root.models.residual_model.model.onnx",
+      "input": "features",
+      "n_features": 10,
+      "sha256": "565e5e1fbc21834a6cb4b4c54b53f006bb57b2b95ab3a75a0f990db8896cec3f"
+    },
+    {
+      "__type__": "onnx_regressor",
+      "file": "models/national_geo__root.models.0.model.onnx",
+      "input": "features",
+      "n_features": 44,
+      "sha256": "c7f4f0daea6f4a50af412949ca4573ab6b2a1a01f4a97a719768ef27cf54500c"
+    },
+    {
+      "__type__": "onnx_regressor",
+      "file": "models/national_geo__root.models.1.model.onnx",
+      "input": "features",
+      "n_features": 44,
+      "sha256": "fd7f86cd53ffd7526179d638712010e99982fb2dd6eecedd79f356c524c6a24d"
+    },
+    {
+      "__type__": "onnx_regressor",
+      "file": "models/national_geo__root.models.2.model.onnx",
+      "input": "features",
+      "n_features": 44,
+      "sha256": "c95e8406896a830c3dc6aadd14a0a984e291ceacf7d60cb310bc153f75bed395"
+    },
+    {
+      "__type__": "onnx_regressor",
+      "file": "models/national_hybrid__root.base_bundle.models.0.model.onnx",
+      "input": "features",
+      "n_features": 16,
+      "sha256": "a994fcbff692011fb3fe154aeb0dcb9a1852b028c9b9216e73bf9d1ba9cda2f3"
+    },
+    {
+      "__type__": "onnx_regressor",
+      "file": "models/national_hybrid__root.base_bundle.models.1.model.onnx",
+      "input": "features",
+      "n_features": 16,
+      "sha256": "607a060bbc61b6982addea70bb6192108061ef0b9667692b8c83bfe9f0e5e066"
+    },
+    {
+      "__type__": "onnx_regressor",
+      "file": "models/national_hybrid__root.base_bundle.models.2.model.onnx",
+      "input": "features",
+      "n_features": 16,
+      "sha256": "0ce5874d37935ded0a74a5487a67923c70fa6080f546784458313f6de7fef45e"
+    },
+    {
+      "__type__": "onnx_regressor",
+      "file": "models/national_hybrid__root.national_specialist.0.model.onnx",
+      "input": "features",
+      "n_features": 37,
+      "sha256": "775ba6ab8545814e30de57a7c4dbebdfcb94e83eccac2c8263abef1916eb77f7"
+    },
+    {
+      "__type__": "onnx_regressor",
+      "file": "models/national_hybrid__root.national_specialist.1.model.onnx",
+      "input": "features",
+      "n_features": 37,
+      "sha256": "2c9cf1f6c0fb3be2f967a809d7d13b691d04b24878dee3e45f88464a768bc5d5"
+    },
+    {
+      "__type__": "onnx_regressor",
+      "file": "models/national_hybrid__root.national_specialist.2.model.onnx",
+      "input": "features",
+      "n_features": 37,
+      "sha256": "93cd25554ea4aacc4d4300cbf95c0128708de0d30e88f6b201ec7e5c8399a40a"
+    }
+  ]
+}

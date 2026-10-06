@@ -1,0 +1,61 @@
+{
+  "schema_version": "copilot-evidence-v3",
+  "record_types": {
+    "document_chunk": {
+      "required": [
+        "evidence_id",
+        "text",
+        "source_file",
+        "authority",
+        "verified_at",
+        "topics",
+        "territories"
+      ]
+    },
+    "historical_load": {
+      "required": [
+        "evidence_id",
+        "load_id",
+        "route_key",
+        "equipment_key",
+        "all_in_rate_cost",
+        "all_in_rate_sale",
+        "quote_created_at",
+        "cost_available_at"
+      ]
+    },
+    "historical_summary": {
+      "required": [
+        "evidence_id",
+        "match_level",
+        "group_keys",
+        "load_count",
+        "cost_median_mxn",
+        "cost_p25_mxn",
+        "cost_p75_mxn",
+        "sale_median_mxn",
+        "profit_median_mxn",
+        "margin_median_pct",
+        "sales_view"
+      ]
+    },
+    "sales_historical_summary": {
+      "required": [
+        "evidence_id",
+        "route_context",
+        "trip_count",
+        "comparison_basis",
+        "history_message",
+        "cost_usual_observed_mxn",
+        "sale_usual_observed_mxn",
+        "profit_usual_observed_mxn",
+        "margin_usual_observed_pct",
+        "recommended_action"
+      ]
+    }
+  },
+  "confidentiality": {
+    "historical_load": "internal_confidential",
+    "historical_summary": "internal_confidential"
+  }
+}

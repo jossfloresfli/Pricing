@@ -1,0 +1,19 @@
+{
+  "policy_version": "shadow_segmented_v1",
+  "decile_status": "provisional_posthoc_2026_not_for_promotion",
+  "decile_edges_mxn": [
+    13623.08,
+    19601.40,
+    22776.13,
+    27671.56,
+    33443.52,
+    40702.41,
+    45369.14,
+    56542.87,
+    77893.24
+  ],
+  "protected_deciles": ["D7", "D8", "D10"],
+  "low_history_max": 3,
+  "source": "incumbent_lightgbm prediction quantiles from the retrospective 2026-01-02 to 2026-06-26 audit",
+  "warning": "These boundaries are only a frozen UI routing aid. Because they were derived from the audit period, they are not prospective promotion evidence."
+}

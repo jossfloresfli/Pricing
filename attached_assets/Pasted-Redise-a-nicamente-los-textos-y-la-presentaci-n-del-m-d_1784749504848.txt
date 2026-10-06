@@ -1,0 +1,58 @@
+Rediseña únicamente los textos y la presentación del módulo de predecir tarifa. No modifiques los modelos, cálculos, reglas de selección, API ni backend. 
+
+Utiliza lenguaje sencillo para personal de ventas y evita mostrar términos técnicos como LightGBM, P67, guardrails, calibrator o nombres internos de modelos.
+
+En la tarjeta principal muestra:
+
+- “Referencia de costo” en lugar de “Costo sugerido”.
+- “Método utilizado” con un nombre comercial amigable.
+- “Estimación inicial”.
+- “Referencia con protección”.
+- “Experiencia en la ruta”: Sin historial, Historial limitado o Historial suficiente.
+- “Rango estimado de variación”.
+- “¿Por qué se recomienda este resultado?”
+- “Validaciones pendientes”.
+- “Siguiente paso recomendado”.
+
+Cambia el botón “Predecir tarifa” por “Calcular referencia de costo”.
+
+Usa estos nombres visibles:
+
+- lightgbm_incumbent → Estimación histórica.
+- lightgbm_geo_hierarchical → Estimación ajustada por ruta.
+- quantile/P67 → Estimación con protección.
+- national_hybrid → Comparación con rutas similares.
+- Combinación de modelos → Recomendación integral.
+
+Agrega debajo un apartado desplegable llamado “Más opciones de precotización”. Debe mostrar los resultados disponibles de los cuatro modelos:
+
+1. Estimación histórica.
+2. Estimación con protección.
+3. Estimación ajustada por ruta.
+4. Comparación con rutas similares.
+
+Cada opción debe mostrar:
+
+- Costo estimado en MXN.
+- Rango estimado, cuando esté disponible.
+
+
+- Estado: recomendado, disponible con revisión o no aplicable.
+- Motivo de cualquier advertencia.
+
+Destaca una sola opción como “Recomendada para esta ruta”. Permite que el vendedor seleccione otra como referencia de trabajo. Si selecciona una alternativa diferente, solicita registrar un motivo como: tarifa de carrier, experiencia comercial, condición especial o ajuste de mercado. 
+
+No ordenes las opciones únicamente de menor a mayor precio, para evitar que se elija automáticamente la más barata. Conserva los identificadores técnicos únicamente en “Ver detalles técnicos” y en los registros de auditoría.
+
+Mantén siempre esta advertencia:
+
+“Referencia preliminar: este resultado ayuda a preparar la cotización, pero no confirma tarifa ni disponibilidad. Valida el costo con el transportista antes de enviarlo al cliente.”
+
+Diferencia claramente:
+
+- Costo estimado por el modelo.
+- Costo confirmado con transportista.
+- Tarifa propuesta al cliente.
+- Margen estimado.
+
+El resultado debe ser claro, breve y orientado a decisiones comerciales, manteniendo visibles las advertencias y la necesidad de revisión humana.

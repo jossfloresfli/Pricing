@@ -1,0 +1,48 @@
+IMPORTANTE: No hagas NINGÚN cambio al código. Solo lee, muestra y explica. No refactorices, no sugieras mejoras, no modifiques nada.
+
+Necesito entender a fondo 4 áreas críticas del sistema. Responde sección por sección con fragmentos de código real tal como está:
+
+═══════════════════════════════════════════
+1. REQUEST DETAIL MODAL (componente núcleo)
+═══════════════════════════════════════════
+- ¿Cuáles son los 6 tabs exactos y qué hace cada uno?
+- ¿Qué datos muestra cada tab dependiendo del rol del usuario?
+- ¿Qué acciones se pueden ejecutar desde cada tab y quién puede ejecutarlas?
+- ¿Qué endpoints llama cada acción?
+- Muéstrame los fragmentos de código clave de cada tab
+
+═══════════════════════════════════════════
+2. FLUJO COMPLETO DE UNA COTIZACIÓN
+═══════════════════════════════════════════
+Traza el viaje de UNA cotización de inicio a fin (creación → ganada) paso a paso indicando:
+- Qué rol ejecuta cada acción
+- Qué endpoint se llama
+- Qué cambia en la base de datos
+- Qué notificaciones se disparan y a quién
+- Cómo y cuándo cambia el status
+- ¿Hay reglas que impidan saltar etapas o cualquier rol puede cambiar el status libremente?
+- ¿Qué pasa exactamente cuando una cotización llega a "ganada"? ¿Cómo se crea el Pricing File Entry?
+
+═══════════════════════════════════════════
+3. MAPA COMPLETO DE ENDPOINTS (routes.ts)
+═══════════════════════════════════════════
+Lista TODOS los endpoints agrupados por entidad con este formato exacto:
+[MÉTODO] /ruta → qué hace → roles permitidos → middleware aplicado
+
+Entidades: usuarios, pricing-requests, carrier-offers, notifications, catálogos, admin, google-sheets, etc.
+
+Además explica:
+- ¿Cómo funciona el sistema de autenticación y sesiones? ¿Qué guarda en sesión?
+- ¿Qué middleware protege cada grupo de rutas?
+- ¿Cómo se verifica el rol en cada endpoint?
+
+═══════════════════════════════════════════
+4. ESTRUCTURA DEL CAMPO "RUTAS" (JSON crítico)
+═══════════════════════════════════════════
+El campo rutas en pricing_requests es un JSON serializado. Necesito saber:
+- ¿Cuál es la estructura TypeScript exacta de ese objeto? Muéstrame el tipo/interface completo
+- ¿Cuántas rutas puede tener una cotización?
+- ¿Cómo se agrega, edita o elimina una ruta dentro de una cotización existente?
+- ¿Las ofertas de carriers están ligadas a una ruta específica o a toda la cotización?
+- ¿Cómo se relaciona la tabla carrier_offers con las rutas del JSON? ¿Hay un índice o ID de ruta?
+- Muéstrame un ejemplo real del JSON de rutas tal como se guarda en la DB

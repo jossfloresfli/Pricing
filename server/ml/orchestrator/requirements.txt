@@ -1,0 +1,9 @@
+numpy==2.5.1
+pandas==3.0.3
+onnxruntime==1.27.0
+# Copiloto explicador (vax_pricing/copilot)
+pydantic>=2
+openai>=2
+python-dotenv>=1
+tiktoken>=0.13
+scikit-learn>=1.9

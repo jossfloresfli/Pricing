@@ -153,7 +153,7 @@ export function PlacesAutocomplete({
   const placesServiceRef = useRef<google.maps.places.PlacesService | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const inputValueRef = useRef(value);
-  const predictionDebounceRef = useRef<ReturnType<typeof window.setTimeout> | null>(null);
+  const predictionDebounceRef = useRef<any>(null);
   const predictionRequestIdRef = useRef(0);
   const selectionRequestIdRef = useRef(0);
   const mountedRef = useRef(false);

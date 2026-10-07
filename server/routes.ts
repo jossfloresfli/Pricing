@@ -2623,7 +2623,7 @@ export async function registerRoutes(
       const isConnected = await testEmailConnection();
       res.json({ 
         connected: isConnected,
-        message: isConnected ? 'Conexión con Resend exitosa' : 'Error de conexión con Resend'
+        message: isConnected ? 'Conexión con Apps Script exitosa' : 'Error de conexión con Apps Script'
       });
     } catch (error) {
       console.error('Error testing email connection:', error);

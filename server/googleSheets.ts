@@ -1,81 +1,56 @@
-// Google Sheets connection via Replit connectors SDK (integration: google-sheet)
-import { ReplitConnectors } from '@replit/connectors-sdk';
+// Google Sheets connection via Apps Script Webhook (independent of Replit)
 import { db } from './db';
 import { clientes } from '@shared/schema';
 import { eq } from 'drizzle-orm';
-
-const connectors = new ReplitConnectors();
-
-async function getSheetValues(spreadsheetId: string, range: string): Promise<string[][] | undefined> {
-  const response = await connectors.proxy(
-    'google-sheet',
-    `/v4/spreadsheets/${spreadsheetId}/values/${encodeURIComponent(range)}`,
-    { method: 'GET' }
-  );
-  if (!response.ok) {
-    const body = await response.text();
-    throw new Error(`Google Sheets API error ${response.status}: ${body.slice(0, 300)}`);
-  }
-  const data = await response.json();
-  return data.values;
-}
-
-const SPREADSHEET_ID = process.env.GOOGLE_SHEET_ID || '';
-const BD_CLIENTES_SHEET = 'BD Cliente';
 
 export interface ClienteFromSheet {
   nombre: string;
 }
 
 export async function getClientesFromSheet(): Promise<ClienteFromSheet[]> {
-  if (!SPREADSHEET_ID) {
-    console.log('Google Sheet ID not configured');
+  const webhookUrl = process.env.APPS_SCRIPT_EMAIL_URL;
+  if (!webhookUrl) {
+    console.log('[Google Sheets] APPS_SCRIPT_EMAIL_URL no configurada');
     return [];
   }
 
   try {
-    // Solo leer columna A (nombres de clientes)
-    const rows = await getSheetValues(SPREADSHEET_ID, `'${BD_CLIENTES_SHEET}'!A:A`);
-    if (!rows || rows.length === 0) {
-      console.log('No data found in BD Clientes sheet');
+    const response = await fetch(webhookUrl, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ action: 'getClientes' }),
+      redirect: 'follow',
+    });
+
+    if (!response.ok) {
+      console.warn(`[Google Sheets] Apps Script respondió con status ${response.status}`);
+      return [];
+    }
+
+    const data = await response.json();
+    if (!data || !Array.isArray(data.clientes)) {
       return [];
     }
 
     const sheetClientes: ClienteFromSheet[] = [];
     const seenNames = new Set<string>();
-    let emptyRows = 0;
-    let duplicateRows = 0;
 
-    // Empezar desde fila 1 (saltar encabezado si existe)
-    for (let i = 1; i < rows.length; i++) {
-      const row = rows[i];
-      if (!row || row.length === 0) {
-        emptyRows++;
-        continue;
-      }
-      
-      const nombre = row[0]?.toString().trim();
-      if (!nombre) {
-        emptyRows++;
-        continue;
-      }
+    for (const c of data.clientes) {
+      const nombre = (c.nombre || '').toString().trim();
+      if (!nombre) continue;
 
-      const normalizedName = nombre.toLowerCase();
-      if (seenNames.has(normalizedName)) {
-        duplicateRows++;
-        console.log(`[Google Sheets] Duplicate in row ${i + 1}: "${nombre}"`);
-        continue;
+      const normalized = nombre.toLowerCase();
+      if (!seenNames.has(normalized)) {
+        seenNames.add(normalized);
+        sheetClientes.push({ nombre });
       }
-
-      seenNames.add(normalizedName);
-      sheetClientes.push({ nombre });
     }
 
-    console.log(`[Google Sheets] Total rows: ${rows.length - 1}, Valid clientes: ${sheetClientes.length}, Empty rows: ${emptyRows}, Duplicates: ${duplicateRows}`);
+    console.log(`[Google Sheets] Clientes válidos obtenidos: ${sheetClientes.length}`);
     return sheetClientes;
   } catch (error) {
-    console.error('Error reading clientes from Google Sheets:', error);
-    throw error;
+    console.error('[Google Sheets] Error reading clientes from Apps Script:', error);
+    return [];
   }
 }
 
@@ -83,7 +58,8 @@ export async function syncClientesFromSheet(): Promise<{ added: number; reactiva
   const sheetClientes = await getClientesFromSheet();
   if (sheetClientes.length === 0) {
     console.log('[Sync] No clientes found in Google Sheet, skipping sync');
-    return { added: 0, reactivated: 0, total: 0, totalInDb: 0 };
+    const existing = await db.select().from(clientes);
+    return { added: 0, reactivated: 0, total: 0, totalInDb: existing.length };
   }
 
   const existingClientes = await db.select().from(clientes);

@@ -1023,7 +1023,7 @@ export function RequestDetailModal({
           ? selectedOffers.map(o => o.carrier).join(", ") 
           : "Sin carrier";
         const carrierReps = selectedOffers.length > 0
-          ? [...new Set(selectedOffers.map(o => o.carrierRep))].join(", ")
+          ? Array.from(new Set(selectedOffers.map(o => o.carrierRep))).join(", ")
           : null;
 
         return {

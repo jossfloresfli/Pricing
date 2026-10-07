@@ -1,50 +1,7 @@
-import { Resend } from 'resend';
-
-async function getUncachableResendClient() {
-  const hostname = process.env.REPLIT_CONNECTORS_HOSTNAME;
-  const xReplitToken = process.env.REPL_IDENTITY 
-    ? 'repl ' + process.env.REPL_IDENTITY 
-    : process.env.WEB_REPL_RENEWAL 
-    ? 'depl ' + process.env.WEB_REPL_RENEWAL 
-    : null;
-
-  if (!xReplitToken) {
-    throw new Error('X_REPLIT_TOKEN not found for repl/depl');
-  }
-
-  const connectionSettings = await fetch(
-    'https://' + hostname + '/api/v2/connection?include_secrets=true&connector_names=resend',
-    {
-      headers: {
-        'Accept': 'application/json',
-        'X_REPLIT_TOKEN': xReplitToken
-      }
-    }
-  ).then(res => res.json()).then(data => data.items?.[0]);
-
-  if (!connectionSettings || !connectionSettings.settings?.api_key) {
-    throw new Error('Resend not connected - API key not found');
-  }
-
-  const apiKey = connectionSettings.settings.api_key;
-  const fromEmail = connectionSettings.settings.from_email;
-
-  if (!fromEmail) {
-    console.warn(
-      'Resend fromEmail not configured; the onboarding sender can only deliver to the Resend account owner',
-    );
-  }
-
-  // Use the verified sender configured in the Replit Resend connection. The
-  // onboarding fallback is intentionally retained for development-only setups.
-  const finalFromEmail =
-    fromEmail || 'VAX Pricing Hub <onboarding@resend.dev>';
-  
-  return {
-    client: new Resend(apiKey),
-    fromEmail: finalFromEmail
-  };
-}
+// Envío de correos via Google Apps Script Web App (webhook).
+// El Apps Script recibe un POST con los datos y usa MailApp.sendEmail() de Google.
+// Variable requerida: APPS_SCRIPT_EMAIL_URL (URL de publicación del script como Web App).
+// Migrado desde Resend/Replit Connectors — ahora independiente de plataforma.
 
 interface NotificationEmailParams {
   to: string;
@@ -128,37 +85,45 @@ function getEmailTemplate(params: NotificationEmailParams): string {
 }
 
 export async function sendNotificationEmail(params: NotificationEmailParams): Promise<boolean> {
+  const webhookUrl = process.env.APPS_SCRIPT_EMAIL_URL;
+  if (!webhookUrl) {
+    console.warn('[Email] APPS_SCRIPT_EMAIL_URL no configurada, correo omitido');
+    return false;
+  }
+
   try {
-    const { client, fromEmail } = await getUncachableResendClient();
-    
     const html = getEmailTemplate(params);
-    
-    const { data, error } = await client.emails.send({
-      from: fromEmail || 'VAX Pricing Hub <noreply@resend.dev>',
-      to: params.to,
-      subject: `[VAX Pricing Hub] ${params.title}`,
-      html: html,
+    const response = await fetch(webhookUrl, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        to: params.to,
+        subject: `[VAX Pricing Hub] ${params.title}`,
+        html,
+        // También enviamos texto plano como fallback para el script
+        text: `${params.title}\n\n${params.message}${params.requestId ? `\n\nID de Cotización: #${params.requestId}` : ''}`,
+      }),
+      redirect: 'follow',
     });
-    
-    if (error) {
-      console.error('Error sending email:', error);
+
+    if (!response.ok) {
+      console.error('[Email] Apps Script respondió con error:', response.status);
       return false;
     }
-    
-    console.log('Email sent successfully:', data?.id);
+
+    console.log('[Email] Correo enviado via Apps Script a:', params.to);
     return true;
   } catch (error) {
-    console.error('Failed to send notification email:', error);
+    console.error('[Email] Error al llamar Apps Script webhook:', error);
     return false;
   }
 }
 
 export async function testEmailConnection(): Promise<boolean> {
-  try {
-    await getUncachableResendClient();
-    return true;
-  } catch (error) {
-    console.error('Email connection test failed:', error);
+  const webhookUrl = process.env.APPS_SCRIPT_EMAIL_URL;
+  if (!webhookUrl) {
+    console.warn('[Email] APPS_SCRIPT_EMAIL_URL no configurada');
     return false;
   }
+  return true;
 }

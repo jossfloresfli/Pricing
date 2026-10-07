@@ -1,28 +1,42 @@
-// Slack notifications via the Replit Slack connector (Web API proxy pattern).
-// Connector: ccfg_slack — posts messages to a channel using chat.postMessage.
-import { ReplitConnectors } from "@replit/connectors-sdk";
+// Slack notifications via official Slack Web API (independent of Replit)
 import { storage } from "./storage";
 import { sendNotificationEmail } from "./emailService";
-
-const connectors = new ReplitConnectors();
 
 // Channel where notifications are posted. Override with SLACK_CHANNEL_NAME if needed.
 const SLACK_CHANNEL = (process.env.SLACK_CHANNEL_NAME || "PricingHub").replace(/^#/, "");
 
+// Helper to make Slack Web API calls directly
+async function slackApiCall(path: string, options: { method?: string; body?: any } = {}): Promise<any> {
+  const token = process.env.SLACK_BOT_TOKEN?.trim();
+  if (!token) {
+    return { ok: false, error: "SLACK_BOT_TOKEN_NOT_CONFIGURED" };
+  }
+
+  const url = `https://slack.com/api${path.startsWith("/") ? path : `/${path}`}`;
+  const isPost = (options.method || "GET").toUpperCase() === "POST";
+
+  const res = await fetch(url, {
+    method: options.method || "GET",
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json; charset=utf-8",
+    },
+    body: isPost && options.body ? JSON.stringify(options.body) : undefined,
+  });
+
+  return await res.json();
+}
+
 // Base URL used to build deep links back into the platform from a notification.
-// Prefer an explicit APP_BASE_URL (set this to the published domain after deploy);
-// otherwise fall back to the current Replit dev domain. Returns null if neither is
-// available so we simply skip the link instead of producing a broken URL.
 function getAppBaseUrl(): string | null {
   const explicit = process.env.APP_BASE_URL?.trim();
   if (explicit) return explicit.replace(/\/+$/, "");
   const devDomain = (process.env.REPLIT_DOMAINS || "").split(",")[0]?.trim();
   if (devDomain) return `https://${devDomain}`;
-  return null;
+  return "http://localhost:5000";
 }
 
 // Cache the resolved channel id, but with a TTL and the ability to invalidate
-// when Slack reports the channel is gone or the bot was removed.
 const CHANNEL_CACHE_TTL_MS = 60 * 60 * 1000; // 1 hour
 let cachedChannel: { id: string; isMember: boolean; resolvedAt: number } | null = null;
 const USER_CACHE_TTL_MS = 60 * 60 * 1000;
@@ -73,9 +87,7 @@ async function resolveSlackUserIdByEmail(
   }
 
   try {
-    const path = `/users.lookupByEmail?email=${encodeURIComponent(normalizedEmail)}`;
-    const res = await connectors.proxy("slack", path, { method: "GET" });
-    const data = await res.json();
+    const data = await slackApiCall(`/users.lookupByEmail?email=${encodeURIComponent(normalizedEmail)}`);
 
     if (!data.ok) {
       if (data.error === "users_not_found") {
@@ -91,17 +103,11 @@ async function resolveSlackUserIdByEmail(
         console.warn(
           "[Slack] No se pueden resolver menciones: falta el permiso users:read.email",
         );
-      } else {
-        console.warn(
-          "[Slack] users.lookupByEmail error:",
-          data.error || "unknown_error",
-        );
       }
       return null;
     }
 
-    const slackUserId =
-      typeof data.user?.id === "string" ? data.user.id : null;
+    const slackUserId = typeof data.user?.id === "string" ? data.user.id : null;
     cachedSlackUsers.set(normalizedEmail, {
       id: slackUserId,
       resolvedAt: Date.now(),
@@ -165,20 +171,23 @@ async function resolveChannel(
     return { id: cachedChannel.id, isMember: cachedChannel.isMember };
   }
 
+  const token = process.env.SLACK_BOT_TOKEN?.trim();
+  if (!token) return null;
+
   const wanted = SLACK_CHANNEL.toLowerCase();
   let cursor: string | undefined;
 
   try {
     do {
-      // Only public_channel — private_channel requires groups:read which the connector does not grant.
       const path =
         `/conversations.list?limit=200&exclude_archived=true&types=public_channel` +
         (cursor ? `&cursor=${encodeURIComponent(cursor)}` : "");
-      const res = await connectors.proxy("slack", path, { method: "GET" });
-      const data = await res.json();
+      const data = await slackApiCall(path);
 
       if (!data.ok) {
-        console.error("[Slack] conversations.list error:", data.error);
+        if (data.error !== "SLACK_BOT_TOKEN_NOT_CONFIGURED") {
+          console.error("[Slack] conversations.list error:", data.error);
+        }
         return null;
       }
 
@@ -210,6 +219,10 @@ async function resolveChannel(
 export async function sendSlackNotification(
   params: SlackNotificationParams
 ): Promise<boolean> {
+  if (!process.env.SLACK_BOT_TOKEN?.trim()) {
+    return false;
+  }
+
   try {
     const channel = await resolveChannel();
     if (!channel) return false;
@@ -242,7 +255,7 @@ export async function sendSlackNotification(
       });
     }
 
-    // Deep link back to the specific quote, when we have an id and a base URL.
+    // Deep link back to the specific quote
     const baseUrl = getAppBaseUrl();
     if (params.requestId && baseUrl) {
       const quoteUrl = `${baseUrl}/board?detail=${encodeURIComponent(params.requestId)}`;
@@ -259,21 +272,18 @@ export async function sendSlackNotification(
       });
     }
 
-    const res = await connectors.proxy("slack", "/chat.postMessage", {
+    const data = await slackApiCall("/chat.postMessage", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
+      body: {
         channel: channel.id,
         text: `${params.title} — ${slackMessage}`,
         username: "VAX Pricing Hub Bot",
         icon_emoji: ":truck:",
         blocks,
-      }),
+      },
     });
 
-    const data = await res.json();
     if (!data.ok) {
-      // Stale-channel errors: drop the cache so the next call re-resolves.
       if (
         data.error === "channel_not_found" ||
         data.error === "not_in_channel" ||
@@ -292,7 +302,7 @@ export async function sendSlackNotification(
   }
 }
 
-// Fire-and-forget dispatch: never blocks or throws into the caller's request flow.
+// Fire-and-forget dispatch
 export function dispatchSlackNotification(params: SlackNotificationParams): void {
   sendSlackNotification(params).catch((error) => {
     console.error("[Slack] dispatch failed:", error);
@@ -325,9 +335,6 @@ async function sendPricingTeamEmails(
     );
 
     if (recipients.length === 0) {
-      console.warn(
-        "[Email] No hay usuarios activos de Pricing con correo configurado",
-      );
       return;
     }
 
@@ -354,8 +361,6 @@ async function sendPricingTeamEmails(
   }
 }
 
-// Every event sent to the Pricing Slack channel is mirrored once by email to
-// each active Pricing user. Both deliveries are independent and non-blocking.
 export function dispatchPricingTeamNotification(
   params: SlackNotificationParams,
 ): void {
@@ -376,9 +381,12 @@ export async function testSlackConnection(): Promise<{
   channelFound: boolean;
   canPost: boolean;
 }> {
+  if (!process.env.SLACK_BOT_TOKEN?.trim()) {
+    return { ok: false, channelFound: false, canPost: false };
+  }
+
   try {
-    const res = await connectors.proxy("slack", "/auth.test", { method: "GET" });
-    const data = await res.json();
+    const data = await slackApiCall("/auth.test");
     const channel = await resolveChannel(true);
     return {
       ok: !!data.ok,

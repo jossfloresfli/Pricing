@@ -1456,6 +1456,8 @@ export async function registerRoutes(
       return res.status(404).json({ error: "Request not found" });
     }
     
+    // Fire-and-forget: status + urgency notifications (non-blocking)
+    void (async () => {
     // Role-based notifications for status changes
     if (req.body.status && previousStatus !== req.body.status) {
       const newStatus = req.body.status;
@@ -1650,7 +1652,10 @@ export async function registerRoutes(
           .catch((error) => console.error("[Slack] urgency notification failed:", error));
       }
     }
-    
+    })().catch((error) => {
+      console.error(`[PricingRequest] status/urgency notification fan-out failed for request ${id}:`, error);
+    });
+
     res.json(request);
   }));
 
